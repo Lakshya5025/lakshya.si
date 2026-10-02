@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lakshya Gupta</title>
+<meta name="description" content="Lakshya Gupta — I build things end-to-end and ship them. Web + quant finance.">
+<meta property="og:title" content="Lakshya Gupta">
+<meta property="og:description" content="I build things end-to-end and ship them. Web + quant finance.">
+<meta property="og:url" content="https://lakshya.si">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2358a6ff'/><text x='50' y='70' font-size='60' font-family='monospace' text-anchor='middle' fill='%230d1117'>L</text></svg>">
+<style>
+  :root {
+    --bg: #fbfbfa; --fg: #1a1a1a; --muted: #666; --line: #e6e6e3; --card: #fff;
+    --blue: #1f6feb; --green: #1a7f37; --purple: #8250df;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0d1117; --fg: #e6edf3; --muted: #8b949e; --line: #21262d; --card: #161b22;
+            --blue: #58a6ff; --green: #3fb950; --purple: #a371f7; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+         font: 17px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 72px 16px 48px; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  h1 { font-size: 2.4rem; line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.02em; }
+  h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted);
+       margin: 56px 0 16px; font-weight: 600; }
+  h3 { font-size: 1.1rem; margin: 0; }
+  p { margin: 0 0 12px; }
+  .lede { font-size: 1.2rem; color: var(--muted); }
+  .links { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 20px; font-size: 0.95rem; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+  .card header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+  .card p { color: var(--muted); font-size: 0.95rem; margin: 0 0 10px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags span { font: 0.75rem ui-monospace, SFMono-Regular, Menlo, monospace; padding: 2px 8px;
+               border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
+  .note { border-left: 3px solid var(--purple); padding: 4px 0 4px 16px; color: var(--muted); font-size: 0.95rem; margin: 0 0 20px; }
+  ul.list { list-style: none; padding: 0; margin: 0; }
+  ul.list li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  ul.list li span { color: var(--muted); font-size: 0.9rem; }
+  footer { margin-top: 64px; color: var(--muted); font-size: 0.85rem; font-style: italic; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Lakshya Gupta</h1>
+  <p class="lede">I build things end-to-end and ship them. Two tracks that keep feeding each other — the web work pays for the curiosity, the finance work supplies the problems.</p>
+  <nav class="links">
+    <a href="https://github.com/Lakshya5025">GitHub</a>
+    <a href="https://www.linkedin.com/in/lakshya123">LinkedIn</a>
+    <a href="https://www.instagram.com/lakshya.gupta.05">Instagram</a>
+  </nav>
+
+  <h2>What I'm building</h2>
+  <p class="note">These are vibe-coded, and I'd rather say so. I specced them, made the product calls and shipped them — the direction and decisions are mine, the keystrokes mostly aren't.</p>
+
+  <article class="card">
+    <header><h3><span class="dot" style="background:var(--blue)"></span>Load-Bearing</h3><a href="https://easy-system-design.vercel.app/">Open the course →</a></header>
+    <p>A free system design course. 100+ lessons from "what happens when you tap a button" to sharding, sagas and staff-level tradeoffs. Draw real architectures on a canvas that grades your design. No signup, no paywall.</p>
+    <div class="tags"><span>Vanilla JS</span><span>SSG</span></div>
+  </article>
+
+  <article class="card">
+    <header><h3><span class="dot" style="background:var(--green)"></span>LearnFinance</h3><a href="https://learnfinance-tau.vercel.app">Start learning →</a></header>
+    <p>Gamified, India-focused finance — zero to advanced. Because most finance content assumes a 401(k) and an S&amp;P 500.</p>
+    <div class="tags"><span>Astro</span><span>Tailwind</span><span>MDX</span></div>
+  </article>
+
+  <article class="card">
+    <header><h3><span class="dot" style="background:var(--blue)"></span>sysdesign-academy</h3></header>
+    <p>The course, rebuilt properly: lessons authored in MDX, a real content pipeline, tests over the lesson loader.</p>
+    <div class="tags"><span>Next.js</span><span>TypeScript</span><span>Supabase</span><span>Vitest</span></div>
+  </article>
+
+  <article class="card">
+    <header><h3><span class="dot" style="background:var(--green)"></span>Quant screeners</h3><span style="color:var(--muted);font-size:.85rem">private — it trades real money</span></header>
+    <p>Growth, quality and income screens over the NSE F&amp;O universe, built on actual financial statements and daily bars. Plus a backtesting sandbox for momentum, overnight and variance-risk-premium strategies.</p>
+    <div class="tags"><span>Python</span><span>pandas</span><span>Kite Connect</span></div>
+  </article>
+
+  <h2>Built the long way</h2>
+  <ul class="list">
+    <li><a href="https://github.com/Lakshya5025/ai-component-playground">AI Component Playground</a><span>React components from a prompt · React, Express, Gemini</span></li>
+    <li><a href="https://help-desk-hackathon-project.vercel.app">HelpDesk</a><span>Support ticketing · MERN, JWT</span></li>
+    <li><a href="https://github.com/Lakshya5025/Excaliedraw-project">Excalidraw clone</a><span>Collaborative canvas · Turborepo, Next.js, ws</span></li>
+    <li><a href="https://github.com/Lakshya5025/Chat-App">Chat App</a><span>Real-time messaging · React, WebSockets</span></li>
+    <li><a href="https://github.com/Lakshya5025/AutoCost">AutoCost</a><span>Cost estimation · Express, Prisma, Postgres</span></li>
+  </ul>
+
+  <h2>Working with</h2>
+  <div class="tags">
+    <span>TypeScript</span><span>Python</span><span>React</span><span>Next.js</span><span>Node.js</span>
+    <span>Django</span><span>Angular</span><span>Astro</span><span>PostgreSQL</span><span>Tailwind</span>
+  </div>
+
+  <footer>Still shipping. Still finding out.</footer>
+</main>
+</body>
+</html>
