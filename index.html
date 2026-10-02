@@ -11,6 +11,7 @@
 <meta name="theme-color" content="#08090b">
 <link rel="canonical" href="https://lakshya.si/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2308090b'/><path d='M20 70 L40 50 L55 60 L80 25' stroke='%23ffb000' stroke-width='10' fill='none' stroke-linecap='square'/></svg>">
+<script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -41,7 +42,11 @@
   .logo { font: 700 14px var(--mono); background: var(--amber); color: #000; padding: 4px 10px; }
   nav { display: flex; gap: 4px; }
   nav a { font: 500 13px var(--mono); color: var(--muted); padding: 8px 12px; }
+  nav a { position: relative; transition: color .2s; }
+  nav a::after { content: ""; position: absolute; left: 10%; right: 10%; bottom: 2px; height: 2px; background: var(--amber);
+                 transform: scaleX(0); transform-origin: left; transition: transform .35s cubic-bezier(.2,.8,.2,1); }
   nav a:hover, nav a.on { color: var(--amber); }
+  nav a.on::after { transform: scaleX(1); }
   @media (max-width: 560px) { nav a { padding: 8px 6px; font-size: 12px; } nav a.hide-sm { display: none; } }
 
   /* ---------- hero ---------- */
@@ -58,7 +63,9 @@
   .kpi b { display: block; font: 400 40px/1 var(--display); letter-spacing: .01em; }
   .kpi span { display: block; margin-top: 8px; font-size: 13px; color: var(--muted); }
   .hero h1 { font: 400 clamp(64px, 13vw, 168px)/.85 var(--display); text-transform: uppercase; margin: 20px 0 0; }
-  .hero h1 span { color: var(--amber); }
+  .hero h1 .line { display: block; overflow: hidden; padding-bottom: .04em; }
+  .hero h1 .line > span { display: inline-block; }
+  .hero h1 .gold { color: var(--amber); }
   .hero .lead { font-size: clamp(18px, 2.2vw, 22px); line-height: 1.55; color: var(--muted); max-width: 34em; margin: 32px 0 0; }
   .hero .lead b { color: var(--text); font-weight: 500; }
   .quote { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 14px; margin-top: 28px; font-family: var(--mono); }
@@ -68,6 +75,7 @@
   .btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
   .btn { font: 700 13px var(--mono); letter-spacing: .08em; text-transform: uppercase; padding: 14px 22px; border: 1px solid var(--line-2); transition: background .15s, color .15s, border-color .15s; }
   .btn:hover { border-color: var(--text); }
+  .btn:active { transform: translateY(1px) scale(.985); }
   .btn.buy { background: var(--green); border-color: var(--green); color: #000; }
   .btn.buy:hover { background: #5dffb8; border-color: #5dffb8; }
 
@@ -111,6 +119,10 @@
   .projects { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
   .proj { border-bottom: 1px solid var(--line); }
   .proj > a, .proj > div { display: grid; grid-template-columns: 96px 1fr 120px 92px; gap: 8px 24px; align-items: baseline; padding: 28px 0; transition: padding .2s, background .2s; }
+  .proj > a { position: relative; }
+  .proj > a::before { content: ""; position: absolute; left: 0; top: 18px; bottom: 18px; width: 2px; background: var(--amber);
+                      transform: scaleY(0); transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+  .proj > a:hover::before { transform: scaleY(1); }
   .proj > a:hover { background: var(--panel); padding-left: 16px; padding-right: 16px; }
   .tk { font: 700 13px var(--mono); color: var(--amber); }
   .proj h3 { font-size: 22px; font-weight: 600; margin: 0; letter-spacing: -.01em; }
@@ -145,7 +157,9 @@
   .book-head span:last-child { text-align: right; }
   .book-row { margin-bottom: 3px; font: 500 14px var(--mono); }
   .lvl { position: relative; padding: 8px 12px; white-space: nowrap; overflow: hidden; }
-  .lvl::before { content: ""; position: absolute; top: 0; bottom: 0; width: var(--w); opacity: .14; }
+  .lvl::before { content: ""; position: absolute; top: 0; bottom: 0; width: var(--w); opacity: .14;
+                 transition: width 1s cubic-bezier(.2,.8,.2,1) var(--d, 0s); }
+  .js .book:not(.in) .lvl::before { width: 0; }
   .bid { text-align: right; color: var(--green); } .bid::before { right: 0; background: var(--green); }
   .ask { color: var(--red); } .ask::before { left: 0; background: var(--red); }
   .lvl span { position: relative; }
@@ -197,7 +211,20 @@
   .cli input { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: var(--text); font: 14px var(--mono); caret-color: var(--amber); }
   .cli input::placeholder { color: var(--dim); }
 
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }
+  /* ---------- motion: plays once, never loops ---------- */
+  @keyframes rise { from { transform: translateY(105%); } }
+  @keyframes up { from { opacity: 0; transform: translateY(16px); } }
+  .js .hero h1 .line > span { animation: rise 1s cubic-bezier(.2,.8,.2,1) both; }
+  .js .hero h1 .line + .line > span { animation-delay: .12s; }
+  .js .rise { animation: up .8s cubic-bezier(.2,.7,.2,1) both; animation-delay: var(--d, 0s); }
+  .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
+  .js .reveal.in { opacity: 1; transform: none; }
+  .js .spark polyline { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1) .35s; }
+  .js .in .spark polyline { stroke-dashoffset: 0; }
+  .timeline li::before { transition: background .4s ease .35s; }
+  .timeline li.in::before { background: var(--amber); }
+
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 </style>
 </head>
 <body>
@@ -220,20 +247,20 @@
     <!-- hero -->
     <div class="hero">
       <div>
-      <p class="label">LKSY · SDE 1 at FloBiz (myBillBook) · Rajasthan, India</p>
-      <h1>Lakshya<br><span>Gupta</span></h1>
-      <p class="lead">Software engineer at <b>FloBiz</b>, the team behind myBillBook. I build web products <b>end-to-end and ship them</b> — TypeScript, React, Next.js, Node and Django — and quant tools for Indian markets in Python.</p>
-      <div class="quote">
+      <p class="label rise" style="--d:.2s">LKSY · SDE 1 at FloBiz (myBillBook) · Rajasthan, India</p>
+      <h1><span class="line"><span>Lakshya</span></span><span class="line"><span class="gold">Gupta</span></span></h1>
+      <p class="lead rise" style="--d:.35s">Software engineer at <b>FloBiz</b>, the team behind myBillBook. I build web products <b>end-to-end and ship them</b> — TypeScript, React, Next.js, Node and Django — and quant tools for Indian markets in Python.</p>
+      <div class="quote rise" style="--d:.47s">
         <span class="px" id="price">₹2,026.00</span>
         <span class="chg up">▲ +1,926% since 2022</span>
         <span class="note">RATING: STRONG BUY · NOT FINANCIAL ADVICE</span>
       </div>
-      <div class="btns">
+      <div class="btns rise" style="--d:.59s">
         <a class="btn buy" href="#contact">Buy $LKSY</a>
         <a class="btn" href="#work">See the work ↓</a>
       </div>
       </div>
-      <dl class="profile">
+      <dl class="profile rise" style="--d:.5s">
         <dt>NAME</dt><dd>Lakshya Gupta</dd>
         <dt>ROLE</dt><dd>SDE 1 · FloBiz</dd>
         <dt>DESKS</dt><dd>Web · Quant finance</dd>
@@ -244,10 +271,10 @@
     </div>
 
     <div class="kpis">
-      <div class="kpi"><b>100+</b><span>lessons in Load-Bearing</span></div>
-      <div class="kpi"><b>2</b><span>products live in production</span></div>
-      <div class="kpi"><b>53</b><span>public repositories</span></div>
-      <div class="kpi"><b>5</b><span>projects shipped in 2026</span></div>
+      <div class="kpi"><b data-count="100" data-suffix="+">100+</b><span>lessons in Load-Bearing</span></div>
+      <div class="kpi"><b data-count="2">2</b><span>products live in production</span></div>
+      <div class="kpi"><b data-count="53">53</b><span>public repositories</span></div>
+      <div class="kpi"><b data-count="5">5</b><span>projects shipped in 2026</span></div>
     </div>
 
     <div class="chart-box">
@@ -414,6 +441,9 @@
 (() => {
   const $ = s => document.querySelector(s);
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ease = t => 1 - Math.pow(1 - t, 3);
+  const tween = (ms, fn) => { const t0 = performance.now(); const step = now => { const t = Math.min(1, (now - t0) / ms); fn(ease(t)); if (t < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); };
   $('#yr').textContent = new Date().getFullYear();
 
   // seeded RNG so the chart looks the same for everyone
@@ -447,12 +477,13 @@
     return { o, c, h: Math.max(o, c) * (1 + r() * 0.05), l: Math.min(o, c) * (1 - r() * 0.05), v: 0.25 + r() * 0.6 + (isMs.has(i) ? 0.8 : 0) };
   });
   const last = candles[candles.length - 1];
-  $('#price').textContent = '₹' + last.c.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const showPrice = v => $('#price').textContent = '₹' + v.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  if (reduce) showPrice(last.c); else { showPrice(100); setTimeout(() => tween(1800, t => showPrice(100 + (last.c - 100) * t)), 500); }
 
   const cv = $('#chart'), ctx = cv.getContext('2d'), wrap = $('#chartWrap'), tip = $('#tip');
   const C = { up: css('--green'), down: css('--red'), amber: css('--amber'), line: css('--line'), dim: css('--dim'), text: css('--text'), bg: css('--bg') };
   const pad = { l: 18, r: 64, t: 54, b: 28 };
-  let W, H, hover = -1;
+  let W, H, hover = -1, prog = reduce ? 1 : 0;
   const hi = Math.max(...candles.map(c => c.h)), lo = Math.min(...candles.map(c => c.l));
   const cw = () => (W - pad.l - pad.r) / n;
   const x = i => pad.l + cw() * i + cw() / 2;
@@ -468,22 +499,28 @@
     }
     ctx.fillStyle = C.dim;
     candles.forEach((_, i) => { if ((6 + i) % 12 === 0) ctx.fillText(2022 + (6 + i) / 12, x(i) - 14, H - 9); });
+    const shown = prog * n;
     milestones.forEach(([i, name], j) => {
+      if (i > shown) return;
+      ctx.save(); ctx.globalAlpha = Math.min(1, shown - i);
       ctx.strokeStyle = C.amber; ctx.globalAlpha = .35; ctx.setLineDash([2, 4]);
       ctx.beginPath(); ctx.moveTo(x(i), pad.t - 8); ctx.lineTo(x(i), H - pad.b); ctx.stroke();
       ctx.setLineDash([]); ctx.globalAlpha = 1; ctx.fillStyle = C.amber;
       const tw = ctx.measureText(name).width;
       ctx.fillText(name, Math.min(Math.max(x(i) - tw / 2, pad.l), W - pad.r - tw), pad.t - 14 - (j % 2) * 16);
+      ctx.restore();
     });
     const bw = Math.max(1, cw() * 0.6);
     candles.forEach((c, i) => {
+      if (i > shown) return;
       ctx.strokeStyle = ctx.fillStyle = c.c >= c.o ? C.up : C.down;
-      ctx.globalAlpha = hover < 0 || hover === i ? 1 : .55;
+      ctx.globalAlpha = (hover < 0 || hover === i ? 1 : .55) * Math.min(1, shown - i);
       ctx.beginPath(); ctx.moveTo(x(i), y(c.h)); ctx.lineTo(x(i), y(c.l)); ctx.stroke();
       const top = y(Math.max(c.o, c.c)); ctx.fillRect(x(i) - bw / 2, top, bw, Math.max(1, y(Math.min(c.o, c.c)) - top));
       ctx.globalAlpha *= .22; const vh = 40 * c.v / 1.7; ctx.fillRect(x(i) - bw / 2, H - pad.b - vh, bw, vh);
     });
     ctx.globalAlpha = 1;
+    if (prog < 1) return;
     const ly = y(last.c);
     ctx.fillStyle = C.up; ctx.fillRect(W - pad.r + 4, ly - 9, pad.r - 6, 18);
     ctx.fillStyle = C.bg; ctx.font = 'bold 11px JetBrains Mono, monospace'; ctx.fillText(last.c.toFixed(0), W - pad.r + 9, ly + 4);
@@ -498,19 +535,40 @@
   });
   wrap.addEventListener('mouseleave', () => { hover = -1; tip.style.opacity = 0; draw(); });
   new ResizeObserver(size).observe(wrap);
+  const playChart = () => { if (prog === 0) tween(1800, t => { prog = t; draw(); }); };
 
   /* ---------- sparklines ---------- */
   document.querySelectorAll('.spark').forEach(svg => {
     const rr = rng(+svg.dataset.seed); let v = 26; const pts = [];
     for (let i = 0; i < 24; i++) { v = Math.max(4, Math.min(32, v - (rr() - 0.35) * 5)); pts.push(`${(i * 120 / 23).toFixed(1)},${v.toFixed(1)}`); }
-    svg.innerHTML = `<polyline fill="none" stroke="${v < 26 ? C.up : C.down}" stroke-width="1.5" points="${pts.join(' ')}"/>`;
+    svg.innerHTML = `<polyline pathLength="1" fill="none" stroke="${v < 26 ? C.up : C.down}" stroke-width="1.5" points="${pts.join(' ')}"/>`;
   });
 
   /* ---------- skills order book ---------- */
   const bids = ['TypeScript', 'React', 'Next.js', 'Node / Express', 'Django', 'Angular', 'Tailwind'];
   const asks = ['Python', 'pandas', 'PostgreSQL', 'Kite Connect', 'MongoDB', 'MySQL', 'yfinance'];
   $('#bookRows').innerHTML = bids.map((b, i) =>
-    `<div class="book-row"><div class="lvl bid" style="--w:${96 - i * 11}%"><span>${b}</span></div><div class="lvl ask" style="--w:${92 - i * 11}%"><span>${asks[i]}</span></div></div>`).join('');
+    `<div class="book-row" style="--d:${i * 0.06}s"><div class="lvl bid" style="--w:${96 - i * 11}%"><span>${b}</span></div><div class="lvl ask" style="--w:${92 - i * 11}%"><span>${asks[i]}</span></div></div>`).join('');
+
+  /* ---------- scroll reveals (each plays once) ---------- */
+  const countUp = b => { const to = +b.dataset.count, suf = b.dataset.suffix || ''; tween(1200, t => b.textContent = Math.round(to * t) + suf); };
+  const onShow = el => {
+    if (el.classList.contains('chart-box')) playChart();
+    if (el.classList.contains('kpi') && !reduce) countUp(el.querySelector('b'));
+  };
+  const targets = document.querySelectorAll('.kpi, .chart-box, .sec-title, .job, .proj, .disclosure, .sub, .earlier li, .book, .also, .now, .timeline li, .contact .wrap > *');
+  if (reduce) targets.forEach(el => el.classList.add('in'));
+  else {
+    const rio = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in'); onShow(e.target); rio.unobserve(e.target);
+    }), { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    targets.forEach(el => {
+      el.classList.add('reveal');
+      el.style.setProperty('--d', ([...el.parentElement.children].indexOf(el) % 6) * 0.08 + 's');
+      rio.observe(el);
+    });
+  }
 
   /* ---------- nav highlight ---------- */
   const links = [...document.querySelectorAll('nav a')];
