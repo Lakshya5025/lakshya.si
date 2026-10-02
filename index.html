@@ -4,100 +4,344 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lakshya Gupta</title>
-<meta name="description" content="Lakshya Gupta — I build things end-to-end and ship them. Web + quant finance.">
+<meta name="description" content="Lakshya Gupta builds things end-to-end and ships them. Web and quant finance.">
 <meta property="og:title" content="Lakshya Gupta">
 <meta property="og:description" content="I build things end-to-end and ship them. Web + quant finance.">
 <meta property="og:url" content="https://lakshya.si">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2358a6ff'/><text x='50' y='70' font-size='60' font-family='monospace' text-anchor='middle' fill='%230d1117'>L</text></svg>">
+<meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f0f0d" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23141412'/><text x='50' y='72' font-size='68' font-family='Georgia,serif' font-style='italic' text-anchor='middle' fill='%23f4f1ea'>L</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  // set theme before paint to avoid a flash
+  try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
 <style>
+  /* ---------- tokens ---------- */
   :root {
-    --bg: #fbfbfa; --fg: #1a1a1a; --muted: #666; --line: #e6e6e3; --card: #fff;
-    --blue: #1f6feb; --green: #1a7f37; --purple: #8250df;
+    --paper: #f4f1ea; --surface: #ebe7dd; --ink: #141412; --muted: #5b574f; --line: #d9d4c7;
+    --web: #2547f4; --quant: #08704a; --teach: #7a3fd1;
+    --web-wash: #2547f414; --quant-wash: #08704a14;
+    --serif: "Instrument Serif", Georgia, serif;
+    --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --s1: 8px; --s2: 16px; --s3: 24px; --s4: 32px; --s5: 48px; --s6: 64px; --s7: 96px; --s8: 160px;
+    --margin: 16px;
+    color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0d1117; --fg: #e6edf3; --muted: #8b949e; --line: #21262d; --card: #161b22;
-            --blue: #58a6ff; --green: #3fb950; --purple: #a371f7; }
+    :root:not([data-theme="light"]) {
+      --paper: #0f0f0d; --surface: #1a1a17; --ink: #ece8de; --muted: #9a958a; --line: #2a2925;
+      --web: #8197ff; --quant: #4fd69a; --teach: #b896f5;
+      --web-wash: #8197ff1a; --quant-wash: #4fd69a1a;
+      color-scheme: dark;
+    }
   }
+  :root[data-theme="dark"] {
+    --paper: #0f0f0d; --surface: #1a1a17; --ink: #ece8de; --muted: #9a958a; --line: #2a2925;
+    --web: #8197ff; --quant: #4fd69a; --teach: #b896f5;
+    --web-wash: #8197ff1a; --quant-wash: #4fd69a1a;
+    color-scheme: dark;
+  }
+  @media (min-width: 640px) { :root { --margin: 32px; } }
+  @media (min-width: 1024px) { :root { --margin: 48px; } }
+
+  /* ---------- base ---------- */
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--fg);
-         font: 17px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 720px; margin: 0 auto; padding: 72px 16px 48px; }
-  a { color: var(--blue); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  h1 { font-size: 2.4rem; line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.02em; }
-  h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted);
-       margin: 56px 0 16px; font-weight: 600; }
-  h3 { font-size: 1.1rem; margin: 0; }
-  p { margin: 0 0 12px; }
-  .lede { font-size: 1.2rem; color: var(--muted); }
-  .links { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 20px; font-size: 0.95rem; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-bottom: 12px; }
-  .card header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
-  .card p { color: var(--muted); font-size: 0.95rem; margin: 0 0 10px; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.55 var(--sans);
+         transition: background .3s, color .3s; overflow-x: hidden; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--web); outline-offset: 3px; border-radius: 2px; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 var(--margin); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: var(--s2); }
+  @media (min-width: 768px) { .grid { grid-template-columns: repeat(12, 1fr); column-gap: var(--s3); } }
+  .label { font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .web { color: var(--web); } .quant { color: var(--quant); } .teach { color: var(--teach); }
+  em { font-style: italic; }
+
+  /* ---------- ticker ---------- */
+  .ticker { border-bottom: 1px solid var(--line); overflow: hidden; white-space: nowrap; font: 12px/1 var(--mono); }
+  .ticker-track { display: inline-flex; animation: tick 40s linear infinite; padding: 10px 0; }
+  .ticker:hover .ticker-track { animation-play-state: paused; }
+  .ticker span { padding: 0 var(--s3); color: var(--muted); }
+  .ticker b { color: var(--ink); font-weight: 500; margin-right: 6px; }
+  .ticker i { font-style: normal; }
+  @keyframes tick { to { transform: translateX(-50%); } }
+
+  /* ---------- nav ---------- */
+  nav { display: flex; justify-content: space-between; align-items: center; padding: var(--s3) 0; }
+  .mark { font: italic 28px/1 var(--serif); text-decoration: none; }
+  .nav-links { display: flex; gap: var(--s3); align-items: center; }
+  .nav-links a { font: 500 13px/1 var(--mono); text-decoration: none; color: var(--muted); padding: 12px 0; }
+  .nav-links a:hover { color: var(--ink); }
+  .toggle { background: none; border: 1px solid var(--line); color: var(--ink); width: 44px; height: 44px;
+            border-radius: 50%; cursor: pointer; font-size: 16px; display: grid; place-items: center; }
+  .toggle:hover { border-color: var(--ink); }
+  @media (max-width: 639px) { .nav-links a.hide-sm { display: none; } }
+
+  /* ---------- hero ---------- */
+  .hero { padding: var(--s6) 0 var(--s7); }
+  .hero h1 { grid-column: 1 / -1; font: 400 clamp(48px, 10.5vw, 136px)/.95 var(--serif);
+             letter-spacing: -.025em; margin: 0 0 var(--s6); }
+  .hero h1 em { color: var(--muted); }
+  .hero-copy { grid-column: 1 / -1; }
+  .hero-copy p { font-size: 20px; line-height: 1.5; max-width: 34ch; margin: 0 0 var(--s3); }
+  .hero-chart { grid-column: 1 / -1; margin-top: var(--s5); }
+  @media (min-width: 768px) {
+    .hero-copy { grid-column: 1 / span 5; }
+    .hero-chart { grid-column: 7 / -1; margin-top: 0; }
+  }
+  .status { display: inline-flex; align-items: center; gap: var(--s1); }
+  .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--quant); box-shadow: 0 0 0 0 var(--quant);
+           animation: pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+
+  .chart { width: 100%; height: auto; overflow: visible; }
+  .chart .axis { stroke: var(--line); }
+  .chart .line { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+                 stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: draw 2.2s cubic-bezier(.6,0,.2,1) .3s forwards; }
+  .chart .l-web { stroke: var(--web); } .chart .l-quant { stroke: var(--quant); animation-delay: .5s; }
+  .chart .l-teach { stroke: var(--teach); stroke-dasharray: 4 6; stroke-dashoffset: 0; opacity: 0; animation: fade .6s 2.4s forwards; }
+  .chart text { font: 500 11px var(--mono); letter-spacing: .08em; }
+  .chart .node { opacity: 0; animation: fade .4s 2.4s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes fade { to { opacity: 1; } }
+
+  /* ---------- sections ---------- */
+  section { padding: var(--s7) 0; border-top: 1px solid var(--ink); }
+  .sec-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s2); flex-wrap: wrap; margin-bottom: var(--s5); }
+  .sec-head h2 { font: 400 clamp(40px, 6vw, 72px)/1 var(--serif); letter-spacing: -.02em; margin: 0; }
+
+  /* honesty stamp */
+  .stamp { display: inline-block; border: 1.5px solid var(--teach); color: var(--teach); padding: 10px 14px;
+           font: 500 11px/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; transform: rotate(-2deg);
+           max-width: 340px; }
+
+  /* project index rows */
+  .rows { list-style: none; margin: 0; padding: 0; }
+  .row { border-top: 1px solid var(--line); position: relative; }
+  .row:last-child { border-bottom: 1px solid var(--line); }
+  .row > a, .row > div { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: var(--s2); row-gap: var(--s1);
+                         padding: var(--s4) 0; text-decoration: none; transition: background .25s, padding .25s; }
+  .row .meta { grid-column: 1 / -1; display: flex; gap: var(--s2); }
+  .row h3 { grid-column: 1 / -1; font: 400 clamp(32px, 4.4vw, 56px)/1.05 var(--serif); letter-spacing: -.015em; margin: 0; }
+  .row .desc { grid-column: 1 / -1; color: var(--muted); margin: 0; max-width: 52ch; }
+  .row .tags { grid-column: 1 / -1; margin-top: var(--s1); }
+  .row .go { position: absolute; right: 0; top: var(--s4); font: 400 32px/1 var(--serif); transition: transform .25s; }
+  .row.is-web a:hover, .row.is-web > div:hover { background: var(--web-wash); }
+  .row.is-quant a:hover, .row.is-quant > div:hover { background: var(--quant-wash); }
+  .row a:hover .go { transform: translate(4px, -4px); }
+  @media (min-width: 768px) {
+    .row > a, .row > div { grid-template-columns: repeat(12, 1fr); column-gap: var(--s3); align-items: baseline; }
+    .row a:hover, .row > div:hover { padding-left: var(--s2); padding-right: var(--s2); }
+    .row .meta { grid-column: 1 / span 2; flex-direction: column; gap: 4px; }
+    .row h3 { grid-column: 3 / span 5; }
+    .row .desc { grid-column: 8 / span 4; }
+    .row .tags { grid-column: 8 / span 4; }
+    .row .go { position: static; grid-column: 12; grid-row: 1; justify-self: end; }
+  }
   .tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tags span { font: 0.75rem ui-monospace, SFMono-Regular, Menlo, monospace; padding: 2px 8px;
-               border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
-  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
-  .note { border-left: 3px solid var(--purple); padding: 4px 0 4px 16px; color: var(--muted); font-size: 0.95rem; margin: 0 0 20px; }
-  ul.list { list-style: none; padding: 0; margin: 0; }
-  ul.list li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
-  ul.list li span { color: var(--muted); font-size: 0.9rem; }
-  footer { margin-top: 64px; color: var(--muted); font-size: 0.85rem; font-style: italic; }
+  .tags span { font: 12px/1 var(--mono); padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
+
+  /* long-way table */
+  .table { width: 100%; border-collapse: collapse; }
+  .table th { text-align: left; padding: 0 0 var(--s2); border-bottom: 1px solid var(--ink); }
+  .table td { padding: var(--s3) var(--s2) var(--s3) 0; border-bottom: 1px solid var(--line); vertical-align: baseline; }
+  .table td:first-child a { font: 400 28px/1.1 var(--serif); text-decoration: none; }
+  .table td:first-child a:hover { color: var(--web); }
+  .table td:nth-child(2) { color: var(--muted); }
+  .table td:last-child { font: 13px/1.5 var(--mono); color: var(--muted); padding-right: 0; }
+  @media (max-width: 767px) {
+    .table thead { display: none; }
+    .table tr { display: block; padding: var(--s3) 0; border-bottom: 1px solid var(--line); }
+    .table td { display: block; padding: 2px 0; border: 0; }
+  }
+
+  /* stack */
+  .stack { font: 400 clamp(32px, 5vw, 64px)/1.15 var(--serif); letter-spacing: -.015em; margin: 0; }
+  .stack span { white-space: nowrap; }
+  .stack .sep { color: var(--line); margin: 0 .2em; }
+
+  /* footer */
+  footer { border-top: 1px solid var(--ink); padding: var(--s7) 0 var(--s5); }
+  footer .big { grid-column: 1 / -1; font: 400 clamp(56px, 13vw, 176px)/.9 var(--serif); letter-spacing: -.03em; margin: 0 0 var(--s6); }
+  footer .big em { color: var(--muted); }
+  .contact { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); }
+  .contact a { font: 400 28px/1.2 var(--serif); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+  .contact a:hover { border-color: var(--ink); }
+  .colophon { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s7); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .chart .line { stroke-dashoffset: 0; }
+    .chart .l-teach, .chart .node { opacity: 1; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <h1>Lakshya Gupta</h1>
-  <p class="lede">I build things end-to-end and ship them. Two tracks that keep feeding each other — the web work pays for the curiosity, the finance work supplies the problems.</p>
-  <nav class="links">
-    <a href="https://github.com/Lakshya5025">GitHub</a>
-    <a href="https://www.linkedin.com/in/lakshya123">LinkedIn</a>
-    <a href="https://www.instagram.com/lakshya.gupta.05">Instagram</a>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span><b>LDBR</b>100+ lessons <i class="quant">▲</i></span>
+    <span><b>LFIN</b>zero → advanced <i class="quant">▲</i></span>
+    <span><b>NSE F&amp;O</b>screened on fundamentals <i class="quant">▲</i></span>
+    <span><b>SYSD</b>26 lessons in MDX <i class="quant">▲</i></span>
+    <span><b>PAYWALLS</b>0 <i class="quant">▼</i></span>
+    <span><b>STATUS</b>shipping <i class="quant">●</i></span>
+    <span><b>LDBR</b>100+ lessons <i class="quant">▲</i></span>
+    <span><b>LFIN</b>zero → advanced <i class="quant">▲</i></span>
+    <span><b>NSE F&amp;O</b>screened on fundamentals <i class="quant">▲</i></span>
+    <span><b>SYSD</b>26 lessons in MDX <i class="quant">▲</i></span>
+    <span><b>PAYWALLS</b>0 <i class="quant">▼</i></span>
+    <span><b>STATUS</b>shipping <i class="quant">●</i></span>
+  </div>
+</div>
+
+<div class="wrap">
+  <nav aria-label="Primary">
+    <a class="mark" href="/" aria-label="Lakshya Gupta, home">Lakshya</a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a class="hide-sm" href="#long-way">Long way</a>
+      <a href="#contact">Contact</a>
+      <button class="toggle" id="theme" type="button" aria-label="Toggle dark mode">◐</button>
+    </div>
   </nav>
 
-  <h2>What I'm building</h2>
-  <p class="note">These are vibe-coded, and I'd rather say so. I specced them, made the product calls and shipped them — the direction and decisions are mine, the keystrokes mostly aren't.</p>
+  <header class="hero grid">
+    <h1>I build things <em>end&#8209;to&#8209;end</em> and ship them.</h1>
+    <div class="hero-copy">
+      <p>Two tracks that keep feeding each other — <span class="web">the web work</span> pays for the curiosity, <span class="quant">the finance work</span> supplies the problems.</p>
+      <p class="label status"><span class="pulse"></span>Currently: web + quant</p>
+    </div>
+    <div class="hero-chart">
+      <svg class="chart" viewBox="0 0 520 280" role="img" aria-label="Two lines, web and quant, rising and meeting at teaching">
+        <line class="axis" x1="0" y1="260" x2="520" y2="260"/>
+        <line class="axis" x1="0" y1="60" x2="520" y2="60" stroke-dasharray="2 6"/>
+        <path class="line l-web" d="M0 220 C60 215 90 180 140 175 S220 150 260 120 S330 95 380 80"/>
+        <path class="line l-quant" d="M0 245 L30 238 L55 248 L85 225 L110 232 L140 205 L165 214 L195 185 L220 196 L250 160 L280 168 L310 130 L340 112 L380 80"/>
+        <path class="line l-teach" d="M380 80 L500 40"/>
+        <g class="node">
+          <circle cx="380" cy="80" r="6" fill="var(--teach)"/>
+          <circle cx="500" cy="40" r="4" fill="none" stroke="var(--teach)" stroke-width="2"/>
+          <text x="500" y="22" text-anchor="end" fill="var(--teach)">TEACHING →</text>
+        </g>
+        <text x="0" y="205" fill="var(--web)">WEB</text>
+        <text x="0" y="278" fill="var(--quant)">QUANT</text>
+      </svg>
+    </div>
+  </header>
+</div>
 
-  <article class="card">
-    <header><h3><span class="dot" style="background:var(--blue)"></span>Load-Bearing</h3><a href="https://easy-system-design.vercel.app/">Open the course →</a></header>
-    <p>A free system design course. 100+ lessons from "what happens when you tap a button" to sharding, sagas and staff-level tradeoffs. Draw real architectures on a canvas that grades your design. No signup, no paywall.</p>
-    <div class="tags"><span>Vanilla JS</span><span>SSG</span></div>
-  </article>
+<div class="wrap">
+  <section id="work" aria-labelledby="work-h">
+    <div class="sec-head">
+      <h2 id="work-h">What I'm building</h2>
+      <p class="stamp">Disclosure: these four are vibe&#8209;coded. The specs, product calls &amp; shipping are mine — the keystrokes mostly aren't.</p>
+    </div>
+    <ol class="rows">
+      <li class="row is-web">
+        <a href="https://easy-system-design.vercel.app/">
+          <span class="meta label"><span>01</span><span class="web">Web</span></span>
+          <h3>Load&#8209;Bearing</h3>
+          <p class="desc">A free system design course. 100+ lessons from “what happens when you tap a button” to sharding, sagas and staff-level tradeoffs — on a canvas that grades your architecture. No signup. No paywall.</p>
+          <span class="tags"><span>Vanilla JS</span><span>SSG</span></span>
+          <span class="go" aria-hidden="true">↗</span>
+        </a>
+      </li>
+      <li class="row is-quant">
+        <a href="https://learnfinance-tau.vercel.app">
+          <span class="meta label"><span>02</span><span class="quant">Quant</span></span>
+          <h3>LearnFinance</h3>
+          <p class="desc">Gamified, India-focused finance, zero to advanced. Because most finance content assumes a 401(k) and an S&amp;P 500.</p>
+          <span class="tags"><span>Astro</span><span>Tailwind</span><span>MDX</span></span>
+          <span class="go" aria-hidden="true">↗</span>
+        </a>
+      </li>
+      <li class="row is-web">
+        <div>
+          <span class="meta label"><span>03</span><span class="web">Web</span></span>
+          <h3>sysdesign&#8209;academy</h3>
+          <p class="desc">The course, rebuilt properly. Lessons authored in MDX, a real content pipeline, tests over the lesson loader.</p>
+          <span class="tags"><span>Next.js</span><span>TypeScript</span><span>Supabase</span><span>Vitest</span></span>
+          <span class="go label" style="font-size:11px">In progress</span>
+        </div>
+      </li>
+      <li class="row is-quant">
+        <div>
+          <span class="meta label"><span>04</span><span class="quant">Quant</span></span>
+          <h3>Quant screeners</h3>
+          <p class="desc">Growth, quality and income screens over the NSE F&amp;O universe — built on actual financial statements, not tips off a Telegram channel. Plus a backtesting sandbox.</p>
+          <span class="tags"><span>Python</span><span>pandas</span><span>Kite Connect</span></span>
+          <span class="go label" style="font-size:11px">Private — trades real money</span>
+        </div>
+      </li>
+    </ol>
+  </section>
 
-  <article class="card">
-    <header><h3><span class="dot" style="background:var(--green)"></span>LearnFinance</h3><a href="https://learnfinance-tau.vercel.app">Start learning →</a></header>
-    <p>Gamified, India-focused finance — zero to advanced. Because most finance content assumes a 401(k) and an S&amp;P 500.</p>
-    <div class="tags"><span>Astro</span><span>Tailwind</span><span>MDX</span></div>
-  </article>
+  <section id="long-way" aria-labelledby="long-h">
+    <div class="sec-head">
+      <h2 id="long-h">Built the long way</h2>
+      <p class="label">Every line by hand · hackathons, clones, coursework</p>
+    </div>
+    <table class="table">
+      <thead><tr><th class="label">Project</th><th class="label">What it does</th><th class="label">Stack</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://github.com/Lakshya5025/ai-component-playground">AI Component Playground</a></td><td>React components from a prompt — live preview, zip export</td><td>React · Express · Gemini · Prisma</td></tr>
+        <tr><td><a href="https://help-desk-hackathon-project.vercel.app">HelpDesk</a></td><td>Support ticketing — clients file, agents resolve</td><td>MERN · JWT</td></tr>
+        <tr><td><a href="https://github.com/Lakshya5025/Excaliedraw-project">Excalidraw clone</a></td><td>Collaborative drawing canvas, from scratch</td><td>Turborepo · Next.js · ws</td></tr>
+        <tr><td><a href="https://github.com/Lakshya5025/Chat-App">Chat App</a></td><td>Real-time messaging over raw WebSockets</td><td>React · ws</td></tr>
+        <tr><td><a href="https://github.com/Lakshya5025/AutoCost">AutoCost</a></td><td>Cost estimation, with auth and mailers</td><td>React · Express · Prisma · Postgres</td></tr>
+      </tbody>
+    </table>
+  </section>
 
-  <article class="card">
-    <header><h3><span class="dot" style="background:var(--blue)"></span>sysdesign-academy</h3></header>
-    <p>The course, rebuilt properly: lessons authored in MDX, a real content pipeline, tests over the lesson loader.</p>
-    <div class="tags"><span>Next.js</span><span>TypeScript</span><span>Supabase</span><span>Vitest</span></div>
-  </article>
+  <section aria-labelledby="stack-h">
+    <div class="sec-head"><p class="label" id="stack-h">Working with</p></div>
+    <p class="stack">
+      <span class="web">TypeScript</span><span class="sep">/</span>
+      <span class="quant">Python</span><span class="sep">/</span>
+      <span>React</span><span class="sep">/</span>
+      <span>Next.js</span><span class="sep">/</span>
+      <span>Node</span><span class="sep">/</span>
+      <span>Django</span><span class="sep">/</span>
+      <span>Angular</span><span class="sep">/</span>
+      <span>Astro</span><span class="sep">/</span>
+      <span>Postgres</span><span class="sep">/</span>
+      <span class="quant">pandas</span><span class="sep">/</span>
+      <span>Tailwind</span>
+    </p>
+  </section>
+</div>
 
-  <article class="card">
-    <header><h3><span class="dot" style="background:var(--green)"></span>Quant screeners</h3><span style="color:var(--muted);font-size:.85rem">private — it trades real money</span></header>
-    <p>Growth, quality and income screens over the NSE F&amp;O universe, built on actual financial statements and daily bars. Plus a backtesting sandbox for momentum, overnight and variance-risk-premium strategies.</p>
-    <div class="tags"><span>Python</span><span>pandas</span><span>Kite Connect</span></div>
-  </article>
-
-  <h2>Built the long way</h2>
-  <ul class="list">
-    <li><a href="https://github.com/Lakshya5025/ai-component-playground">AI Component Playground</a><span>React components from a prompt · React, Express, Gemini</span></li>
-    <li><a href="https://help-desk-hackathon-project.vercel.app">HelpDesk</a><span>Support ticketing · MERN, JWT</span></li>
-    <li><a href="https://github.com/Lakshya5025/Excaliedraw-project">Excalidraw clone</a><span>Collaborative canvas · Turborepo, Next.js, ws</span></li>
-    <li><a href="https://github.com/Lakshya5025/Chat-App">Chat App</a><span>Real-time messaging · React, WebSockets</span></li>
-    <li><a href="https://github.com/Lakshya5025/AutoCost">AutoCost</a><span>Cost estimation · Express, Prisma, Postgres</span></li>
-  </ul>
-
-  <h2>Working with</h2>
-  <div class="tags">
-    <span>TypeScript</span><span>Python</span><span>React</span><span>Next.js</span><span>Node.js</span>
-    <span>Django</span><span>Angular</span><span>Astro</span><span>PostgreSQL</span><span>Tailwind</span>
+<footer id="contact">
+  <div class="wrap">
+    <div class="grid">
+      <p class="big">Still shipping.<br><em>Still finding out.</em></p>
+      <div class="contact">
+        <a href="https://github.com/Lakshya5025">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/lakshya123">LinkedIn ↗</a>
+        <a href="https://www.instagram.com/lakshya.gupta.05">Instagram ↗</a>
+      </div>
+    </div>
+    <div class="colophon label">
+      <span>© <span id="yr">2026</span> Lakshya Gupta</span>
+      <span>lakshya.si</span>
+    </div>
   </div>
+</footer>
 
-  <footer>Still shipping. Still finding out.</footer>
-</main>
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.getElementById('theme').onclick = () => {
+    const root = document.documentElement;
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+  };
+</script>
 </body>
 </html>
