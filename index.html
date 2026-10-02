@@ -8,404 +8,321 @@
 <meta property="og:title" content="$LKSY — Lakshya Gupta">
 <meta property="og:description" content="Full-stack developer. Web + quant. Rating: strong buy.">
 <meta property="og:url" content="https://lakshya.si">
-<meta name="theme-color" content="#07080a">
+<meta name="theme-color" content="#08090b">
 <link rel="canonical" href="https://lakshya.si/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2307080a'/><path d='M20 70 L40 50 L55 60 L80 25' stroke='%23ffb000' stroke-width='10' fill='none' stroke-linecap='square'/></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2308090b'/><path d='M20 70 L40 50 L55 60 L80 25' stroke='%23ffb000' stroke-width='10' fill='none' stroke-linecap='square'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #07080a; --panel: #0c0e11; --panel-2: #111419; --line: #1d2229; --line-2: #2a313a;
-    --text: #d8dde4; --muted: #8a939e; --dim: #5d6670;
-    --amber: #ffb000; --green: #19e68c; --red: #ff4d6a; --cyan: #4fd8ff;
+    --bg: #08090b; --panel: #0e1013; --line: #1c2026; --line-2: #2a3038;
+    --text: #e4e7eb; --muted: #9aa3ad; --dim: #66707b;
+    --amber: #ffb000; --green: #19e68c; --red: #ff4d6a; --violet: #b48cff; --cyan: #4fd8ff;
+    --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
     --display: Anton, Impact, "Arial Narrow", sans-serif;
     color-scheme: dark;
   }
   * { box-sizing: border-box; }
-  html { scroll-padding-top: 96px; -webkit-text-size-adjust: 100%; }
-  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.55 var(--mono); padding-bottom: 56px; overflow-x: hidden; }
-  body::after { /* CRT scanlines */
-    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50;
-    background: repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / .18) 2px 3px);
-    mix-blend-mode: multiply;
-  }
-  a { color: var(--cyan); text-decoration: none; }
-  a:hover { color: var(--amber); }
-  :focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
-  ::selection { background: var(--amber); color: var(--bg); }
-  .up { color: var(--green); } .down { color: var(--red); } .amber { color: var(--amber); } .muted { color: var(--muted); } .dim { color: var(--dim); }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.7 var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+  ::selection { background: var(--amber); color: #000; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  .mono { font-family: var(--mono); }
+  .label { font: 500 12px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+  .up { color: var(--green); }
 
-  /* ---------- boot ---------- */
-  #boot { position: fixed; inset: 0; z-index: 100; background: var(--bg); padding: 24px; font-size: 13px; color: var(--green);
-          display: flex; flex-direction: column; justify-content: flex-end; cursor: pointer; transition: opacity .35s; }
-  #boot.done { opacity: 0; pointer-events: none; }
-  #boot p { margin: 0; white-space: pre-wrap; }
-  #boot .skip { position: absolute; top: 24px; right: 24px; color: var(--dim); }
-
-  /* ---------- top chrome ---------- */
-  .chrome { position: sticky; top: 0; z-index: 20; background: var(--bg); }
-  .topbar { display: flex; align-items: center; gap: 16px; padding: 0 16px; height: 36px; background: var(--amber); color: #000; font-weight: 700; font-size: 12px; white-space: nowrap; overflow: hidden; }
-  .topbar .sym { background: #000; color: var(--amber); padding: 2px 8px; }
-  .topbar .grow { flex: 1; overflow: hidden; text-overflow: ellipsis; }
-  .topbar .blink { display: inline-block; width: 8px; height: 8px; background: #000; margin-right: 6px; animation: blink 1s steps(1) infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-  .fkeys { display: flex; gap: 2px; padding: 4px 16px; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
-  .fkeys::-webkit-scrollbar { display: none; }
-  .fkeys a { display: flex; align-items: center; gap: 8px; padding: 6px 12px; color: var(--muted); font-size: 12px; font-weight: 500; white-space: nowrap; border: 1px solid transparent; }
-  .fkeys a:hover, .fkeys a.on { color: var(--amber); border-color: var(--line-2); background: var(--panel); }
-  kbd { font: 700 11px var(--mono); background: var(--panel-2); border: 1px solid var(--line-2); color: var(--amber); padding: 1px 6px; }
-  .tape { overflow: hidden; white-space: nowrap; border-bottom: 1px solid var(--line); background: var(--panel); font-size: 12px; }
-  .tape-in { display: inline-block; padding: 7px 0; animation: tape 45s linear infinite; }
-  .tape:hover .tape-in { animation-play-state: paused; }
-  .tape span { margin: 0 20px; color: var(--muted); }
-  .tape b { color: var(--text); font-weight: 700; margin-right: 8px; }
-  @keyframes tape { to { transform: translateX(-50%); } }
-
-  /* ---------- layout ---------- */
-  main { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; padding: 12px; max-width: 1600px; margin: 0 auto; }
-  .panel { grid-column: 1 / -1; background: var(--panel); border: 1px solid var(--line); position: relative; min-width: 0; }
-  .ph { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 14px; border-bottom: 1px solid var(--line);
-        font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--amber); background: var(--panel-2); }
-  .ph .muted { font-weight: 500; letter-spacing: .04em; }
-  .pb { padding: 16px 14px; }
-  @media (min-width: 1000px) {
-    #positions { grid-column: span 8; } #book { grid-column: span 4; }
-    #archive { grid-column: span 7; } #wire { grid-column: span 5; }
-  }
+  /* ---------- header ---------- */
+  header { position: sticky; top: 0; z-index: 10; background: rgb(8 9 11 / .85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo { font: 700 14px var(--mono); background: var(--amber); color: #000; padding: 4px 10px; }
+  nav { display: flex; gap: 4px; }
+  nav a { font: 500 13px var(--mono); color: var(--muted); padding: 8px 12px; }
+  nav a:hover, nav a.on { color: var(--amber); }
+  @media (max-width: 520px) { nav a { padding: 8px 7px; font-size: 12px; } }
 
   /* ---------- hero ---------- */
-  .hero-top { display: grid; gap: 24px; padding: 20px 14px 8px; }
-  @media (min-width: 1000px) { .hero-top { grid-template-columns: 1fr 420px; align-items: end; } }
-  .quote-line { font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 16px; }
-  .quote-line b { color: var(--text); }
-  .name { font: 400 clamp(56px, 11vw, 168px)/.86 var(--display); text-transform: uppercase; letter-spacing: -.01em; margin: 12px 0 0; color: var(--text); }
-  .name span { color: var(--amber); }
-  .price-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; }
-  .price { font: 700 clamp(32px, 4.5vw, 52px)/1 var(--mono); letter-spacing: -.03em; transition: color .3s; }
-  .price.flash-up { color: var(--green); } .price.flash-down { color: var(--red); }
-  .chg { font-size: 15px; font-weight: 700; }
-  .tagline { margin: 14px 0 0; color: var(--muted); max-width: 62ch; font-size: 15px; }
-  .tagline b { color: var(--text); font-weight: 500; }
-  .des { display: grid; grid-template-columns: auto 1fr; border: 1px solid var(--line); font-size: 12px; }
-  .des dt, .des dd { margin: 0; padding: 6px 10px; border-bottom: 1px solid var(--line); }
-  .des dt { color: var(--amber); font-weight: 700; border-right: 1px solid var(--line); background: var(--panel-2); }
-  .des dt:nth-last-of-type(1), .des dd:last-of-type { border-bottom: 0; }
-  .rating { color: var(--bg) !important; background: var(--green); font-weight: 700; display: inline-block; padding: 0 6px; }
-  .chart-wrap { position: relative; height: clamp(260px, 42vh, 440px); margin: 8px 0 0; border-top: 1px solid var(--line); cursor: crosshair; }
+  .hero { padding: 96px 0 48px; }
+  .hero h1 { font: 400 clamp(64px, 13vw, 168px)/.85 var(--display); text-transform: uppercase; margin: 20px 0 0; }
+  .hero h1 span { color: var(--amber); }
+  .hero .lead { font-size: clamp(18px, 2.2vw, 22px); line-height: 1.55; color: var(--muted); max-width: 34em; margin: 32px 0 0; }
+  .hero .lead b { color: var(--text); font-weight: 500; }
+  .quote { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 14px; margin-top: 28px; font-family: var(--mono); }
+  .quote .px { font-size: 28px; font-weight: 700; }
+  .quote .chg { font-size: 14px; font-weight: 700; }
+  .quote .note { font-size: 11px; color: var(--dim); letter-spacing: .06em; }
+  .btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+  .btn { font: 700 13px var(--mono); letter-spacing: .08em; text-transform: uppercase; padding: 14px 22px; border: 1px solid var(--line-2); transition: background .15s, color .15s, border-color .15s; }
+  .btn:hover { border-color: var(--text); }
+  .btn.buy { background: var(--green); border-color: var(--green); color: #000; }
+  .btn.buy:hover { background: #5dffb8; border-color: #5dffb8; }
+
+  /* ---------- chart ---------- */
+  .chart-box { border: 1px solid var(--line); background: var(--panel); margin-bottom: 24px; }
+  .chart-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+  .chart-wrap { position: relative; height: clamp(240px, 38vh, 380px); cursor: crosshair; }
   #chart { width: 100%; height: 100%; display: block; }
-  .tip { position: absolute; pointer-events: none; background: var(--bg); border: 1px solid var(--amber); padding: 8px 10px; font-size: 11px; line-height: 1.6;
-         white-space: nowrap; opacity: 0; transition: opacity .1s; z-index: 2; }
+  .tip { position: absolute; pointer-events: none; background: var(--bg); border: 1px solid var(--amber); padding: 10px 12px; font: 12px/1.6 var(--mono);
+         max-width: 240px; opacity: 0; transition: opacity .12s; z-index: 2; }
   .tip b { color: var(--amber); }
-  .chart-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; padding: 8px 14px; border-top: 1px solid var(--line); font-size: 11px; color: var(--dim); }
 
-  /* ---------- tables ---------- */
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { text-align: left; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); font-weight: 500; padding: 8px 14px; border-bottom: 1px solid var(--line); }
-  td { padding: 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  tbody tr { transition: background .15s; }
-  tbody tr:hover { background: var(--panel-2); }
-  .tk { font-weight: 700; color: var(--amber); font-size: 13px; }
-  .pname { font-weight: 700; color: var(--text); font-size: 15px; display: block; }
-  .pdesc { color: var(--muted); font-size: 12px; display: block; margin-top: 4px; max-width: 52ch; }
-  .stack { color: var(--dim); font-size: 11px; display: block; margin-top: 8px; }
-  .st { font-size: 10px; font-weight: 700; letter-spacing: .08em; padding: 3px 7px; border: 1px solid currentColor; white-space: nowrap; }
-  .st.live { color: var(--green); } .st.pre { color: var(--cyan); } .st.dark { color: #b48cff; }
-  .spark { width: 110px; height: 36px; display: block; }
-  .go { white-space: nowrap; font-weight: 700; font-size: 12px; }
-  .disclosure { padding: 12px 14px; font-size: 11px; color: var(--dim); border-top: 1px dashed var(--line-2); }
-  .disclosure b { color: var(--muted); }
-  @media (max-width: 760px) {
-    thead { display: none; }
-    table, tbody, tr, td { display: block; }
-    tr { padding: 12px 14px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: auto 1fr auto; gap: 6px 12px; align-items: start; }
-    td { padding: 0; border: 0; }
-    td.c-spark { display: none; }
-    #positions td.c-name { grid-column: 1 / -1; grid-row: 2; }
-    #positions td.c-go { grid-column: 1 / -1; }
-    #archive td.c-name { grid-column: 2 / -1; }
-    #archive td.c-stack { grid-column: 1 / -1; }
+  /* ---------- sections ---------- */
+  section { padding: 112px 0 0; }
+  .sec-title { margin-bottom: 40px; }
+  .sec-title h2 { font: 400 clamp(44px, 7vw, 80px)/.95 var(--display); text-transform: uppercase; margin: 10px 0 0; }
+  .sec-title p { color: var(--muted); margin: 16px 0 0; max-width: 40em; }
+  .sub { margin: 72px 0 20px; }
+
+  /* projects */
+  .projects { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .proj { border-bottom: 1px solid var(--line); }
+  .proj > a, .proj > div { display: grid; grid-template-columns: 96px 1fr auto; gap: 8px 24px; align-items: baseline; padding: 28px 0; transition: padding .2s, background .2s; }
+  .proj > a:hover { background: var(--panel); padding-left: 16px; padding-right: 16px; }
+  .tk { font: 700 13px var(--mono); color: var(--amber); }
+  .proj h3 { font-size: 22px; font-weight: 600; margin: 0; letter-spacing: -.01em; }
+  .proj p { margin: 6px 0 0; color: var(--muted); }
+  .proj .stack { font: 12px var(--mono); color: var(--dim); margin-top: 10px; }
+  .st { font: 700 11px var(--mono); letter-spacing: .08em; padding: 4px 8px; border: 1px solid currentColor; white-space: nowrap; }
+  .st.live { color: var(--green); } .st.pre { color: var(--cyan); } .st.dark { color: var(--violet); }
+  .proj .arrow { color: var(--dim); margin-left: 12px; transition: color .2s, transform .2s; display: inline-block; }
+  .proj > a:hover .arrow { color: var(--amber); transform: translate(3px, -3px); }
+  @media (max-width: 640px) {
+    .proj > a, .proj > div { grid-template-columns: 1fr auto; }
+    .proj .body { grid-column: 1 / -1; grid-row: 2; }
   }
+  .disclosure { font-size: 14px; color: var(--dim); margin: 20px 0 0; max-width: 46em; }
+  .disclosure b { color: var(--muted); font-weight: 500; }
 
-  /* ---------- order book ---------- */
-  .book-head, .book-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-  .book-head { font-size: 10px; letter-spacing: .1em; color: var(--dim); padding: 8px 14px 6px; }
+  .earlier { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  @media (min-width: 720px) { .earlier { grid-template-columns: repeat(2, 1fr); } }
+  .earlier a { display: block; background: var(--bg); padding: 20px; height: 100%; transition: background .15s; }
+  .earlier a:hover { background: var(--panel); }
+  .earlier strong { font-weight: 600; }
+  .earlier span { display: block; color: var(--muted); font-size: 14px; margin-top: 2px; }
+  .earlier .mono { font-size: 12px; color: var(--dim); margin-top: 8px; }
+
+  /* skills order book */
+  .book { border: 1px solid var(--line); background: var(--panel); padding: 20px; }
+  .book-head, .book-row { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+  .book-head { margin-bottom: 10px; }
   .book-head span:last-child { text-align: right; }
-  .book { padding: 0 14px; }
-  .book-row { margin-bottom: 2px; font-size: 12px; }
-  .lvl { position: relative; padding: 5px 8px; overflow: hidden; white-space: nowrap; }
-  .lvl::before { content: ""; position: absolute; top: 0; bottom: 0; width: var(--w); opacity: .16; transition: width 1.2s cubic-bezier(.2,.8,.2,1); }
+  .book-row { margin-bottom: 3px; font: 500 14px var(--mono); }
+  .lvl { position: relative; padding: 8px 12px; white-space: nowrap; overflow: hidden; }
+  .lvl::before { content: ""; position: absolute; top: 0; bottom: 0; width: var(--w); opacity: .14; }
   .bid { text-align: right; color: var(--green); } .bid::before { right: 0; background: var(--green); }
   .ask { color: var(--red); } .ask::before { left: 0; background: var(--red); }
   .lvl span { position: relative; }
-  .spread { text-align: center; font-size: 11px; padding: 8px; margin: 6px 0; border-top: 1px dashed var(--line-2); border-bottom: 1px dashed var(--line-2); color: var(--amber); }
-  .also { padding: 14px; font-size: 11px; color: var(--dim); line-height: 1.8; }
-  .also b { color: var(--muted); }
+  .also { margin: 20px 0 0; color: var(--dim); font-size: 14px; }
 
-  /* ---------- wire ---------- */
-  .wire { list-style: none; margin: 0; padding: 0; }
-  .wire li { display: grid; grid-template-columns: 76px 1fr; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); font-size: 12px; }
-  .wire li:hover { background: var(--panel-2); }
-  .wire time { color: var(--amber); font-weight: 700; }
-  .wire .hl { color: var(--text); font-weight: 700; }
-  .wire .new { background: var(--red); color: #fff; font-size: 9px; font-weight: 700; padding: 1px 4px; margin-right: 6px; animation: blink 1.2s steps(1) infinite; }
+  /* timeline */
+  .timeline { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--line-2); }
+  .timeline li { position: relative; padding: 0 0 36px 32px; }
+  .timeline li:last-child { padding-bottom: 0; }
+  .timeline li::before { content: ""; position: absolute; left: -5px; top: 9px; width: 9px; height: 9px; background: var(--bg); border: 2px solid var(--amber); }
+  .timeline time { font: 700 12px var(--mono); color: var(--amber); letter-spacing: .06em; }
+  .timeline p { margin: 4px 0 0; color: var(--muted); max-width: 40em; }
+  .timeline p b { color: var(--text); font-weight: 600; }
 
-  /* ---------- order ticket ---------- */
-  .ticket { display: grid; gap: 24px; padding: 28px 14px; }
-  @media (min-width: 1000px) { .ticket { grid-template-columns: 1.3fr 1fr; align-items: center; padding: 40px 28px; } }
-  .ticket h2 { font: 400 clamp(44px, 7vw, 104px)/.9 var(--display); text-transform: uppercase; margin: 0; }
-  .ticket h2 span { color: var(--green); }
-  .ticket p { color: var(--muted); max-width: 52ch; margin: 16px 0 0; }
-  .slip { border: 1px solid var(--line-2); background: var(--bg); }
-  .slip-row { display: flex; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--line); font-size: 12px; }
-  .slip-row span:first-child { color: var(--dim); }
-  .exec { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; font-weight: 700; letter-spacing: .08em; font-size: 14px; text-transform: uppercase; }
-  .exec.buy { background: var(--green); color: #000; }
-  .exec.buy:hover { background: #4dffb0; color: #000; }
-  .exec.alt { color: var(--text); border-top: 1px solid var(--line); }
-  .exec.alt:hover { background: var(--panel-2); color: var(--amber); }
-  .fine { font-size: 10px; color: var(--dim); padding: 10px 14px; border-top: 1px solid var(--line); }
+  /* contact */
+  .contact { padding: 140px 0 120px; text-align: center; }
+  .contact h2 { font: 400 clamp(52px, 10vw, 128px)/.9 var(--display); text-transform: uppercase; margin: 16px 0 0; }
+  .contact h2 span { color: var(--green); }
+  .contact p { color: var(--muted); max-width: 32em; margin: 28px auto 0; font-size: 18px; }
+  .contact .btns { justify-content: center; }
+  .contact .fine { font: 11px var(--mono); color: var(--dim); margin-top: 28px; letter-spacing: .04em; }
 
-  footer { text-align: center; color: var(--dim); font-size: 11px; padding: 16px 12px 24px; }
+  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  footer button { background: none; border: 0; padding: 0; cursor: pointer; color: var(--dim); font: inherit; }
+  footer button:hover { color: var(--amber); }
+  kbd { font: 700 11px var(--mono); border: 1px solid var(--line-2); padding: 1px 6px; color: var(--amber); }
 
-  /* ---------- command line ---------- */
-  .cli { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: var(--bg); border-top: 1px solid var(--amber); }
-  .cli-log { max-height: 0; overflow: hidden; transition: max-height .25s; font-size: 12px; border-bottom: 1px solid transparent; }
-  .cli-log.open { max-height: 180px; overflow-y: auto; border-color: var(--line); }
-  .cli-log p { margin: 0; padding: 2px 16px; white-space: pre-wrap; color: var(--muted); }
+  /* ---------- optional command line (press /) ---------- */
+  .cli { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--bg); border-top: 1px solid var(--amber); font-family: var(--mono); font-size: 13px;
+         transform: translateY(100%); transition: transform .2s; }
+  .cli.open { transform: none; }
+  .cli-log { max-height: 160px; overflow-y: auto; }
+  .cli-log p { margin: 0; padding: 2px 20px; white-space: pre-wrap; color: var(--muted); }
   .cli-log p.cmd { color: var(--amber); }
-  .cli form { display: flex; align-items: center; height: 44px; padding: 0 16px; gap: 10px; }
-  .cli label { color: var(--amber); font-weight: 700; white-space: nowrap; }
+  .cli form { display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 20px; }
+  .cli label { color: var(--amber); font-weight: 700; }
   .cli input { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: var(--text); font: 14px var(--mono); caret-color: var(--amber); }
   .cli input::placeholder { color: var(--dim); }
-  .cli .hint { color: var(--dim); font-size: 11px; white-space: nowrap; }
-  @media (max-width: 640px) { .cli .hint { display: none; } .topbar .hide-sm { display: none; } }
 
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation: none !important; transition: none !important; }
-  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }
 </style>
 </head>
 <body>
 
-<div class="chrome">
-  <div class="topbar">
-    <span class="sym">LKSY &lt;GO&gt;</span>
-    <span class="grow">LAKSHYA GUPTA · FULL-STACK DEVELOPER · WEB + QUANT</span>
-    <span class="hide-sm"><i class="blink"></i>MKT OPEN — SHIPPING</span>
-    <span id="clock">IST --:--:--</span>
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Top of page">$LKSY</a>
+    <nav aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </div>
-  <nav class="fkeys" aria-label="Panels">
-    <a href="#overview"><kbd>1</kbd>OVERVIEW</a>
-    <a href="#positions"><kbd>2</kbd>POSITIONS</a>
-    <a href="#book"><kbd>3</kbd>ORDER BOOK</a>
-    <a href="#archive"><kbd>4</kbd>HISTORY</a>
-    <a href="#wire"><kbd>5</kbd>NEWSWIRE</a>
-    <a href="#contact"><kbd>6</kbd>BUY LKSY</a>
-  </nav>
-  <div class="tape" aria-hidden="true"><div class="tape-in">
-    <span><b>LDBR</b>100+ LESSONS <i class="up">▲</i></span><span><b>LFIN</b>LIVE <i class="up">▲</i></span><span><b>SYSD</b>PRE-IPO <i class="amber">●</i></span><span><b>QNT</b>DARK POOL <i style="color:#b48cff">◆</i></span><span><b>REPOS</b>53 <i class="up">▲</i></span><span><b>PAYWALLS</b>0.00 <i class="down">▼</i></span><span><b>B.TECH</b>CSE '26 <i class="up">✓</i></span><span><b>HACKATHONS</b>SHIPPED <i class="up">▲</i></span>
-    <span><b>LDBR</b>100+ LESSONS <i class="up">▲</i></span><span><b>LFIN</b>LIVE <i class="up">▲</i></span><span><b>SYSD</b>PRE-IPO <i class="amber">●</i></span><span><b>QNT</b>DARK POOL <i style="color:#b48cff">◆</i></span><span><b>REPOS</b>53 <i class="up">▲</i></span><span><b>PAYWALLS</b>0.00 <i class="down">▼</i></span><span><b>B.TECH</b>CSE '26 <i class="up">✓</i></span><span><b>HACKATHONS</b>SHIPPED <i class="up">▲</i></span>
-  </div></div>
-</div>
+</header>
 
-<main>
-  <!-- 1 · OVERVIEW -->
-  <section class="panel" id="overview" aria-labelledby="name">
-    <div class="ph"><span>LKSY:DEV · Equity · Description</span><span class="muted">Monthly · Jul 2022 – now</span></div>
-    <div class="hero-top">
-      <div>
-        <div class="quote-line"><span><b>LKSY</b> lakshya.si</span><span>SECTOR <b>WEB · QUANT</b></span><span>HQ <b>RAJASTHAN, IN</b></span></div>
-        <h1 class="name" id="name">Lakshya<br><span>Gupta</span></h1>
-        <div class="price-row">
-          <span class="price" id="price">₹2,026.00</span>
-          <span class="chg up" id="chg">▲ +1,926.00 (+1,926%)</span>
-          <span class="dim" style="font-size:11px">SINCE IPO · NOT FINANCIAL ADVICE</span>
-        </div>
-        <p class="tagline">Full-stack developer who <b>builds things end-to-end and ships them</b>. TypeScript, React, Next.js, Node and Django on the web desk; Python and pandas on the quant desk. The web work pays for the curiosity — the finance work supplies the problems.</p>
-        <p class="tagline">Everything I've shipped in 2026 is <b>vibe-coded</b> with AI agents, and I'd rather say so. I make the product calls, set the architecture, catch the confidently-wrong output and ship it — the keystrokes mostly aren't mine.</p>
+<main id="top">
+  <div class="wrap">
+    <!-- hero -->
+    <div class="hero">
+      <p class="label">LKSY · Full-stack developer · Rajasthan, India</p>
+      <h1>Lakshya<br><span>Gupta</span></h1>
+      <p class="lead">I build web products <b>end-to-end and ship them</b> — TypeScript, React, Next.js, Node and Django — and quant tools for Indian markets in Python.</p>
+      <div class="quote">
+        <span class="px" id="price">₹2,026.00</span>
+        <span class="chg up">▲ +1,926% since 2022</span>
+        <span class="note">RATING: STRONG BUY · NOT FINANCIAL ADVICE</span>
       </div>
-      <dl class="des">
-        <dt>NAME</dt><dd>Lakshya Gupta</dd>
-        <dt>ROLE</dt><dd>Full-Stack Developer</dd>
-        <dt>EDU</dt><dd>B.Tech CSE · LPU · 2026</dd>
-        <dt>LISTED</dt><dd>Jul 2022 (GitHub)</dd>
-        <dt>FLOAT</dt><dd>53 public repositories</dd>
-        <dt>LIVE</dt><dd>2 products in production</dd>
-        <dt>STRATEGY</dt><dd>AI-leveraged (vibe-coded)</dd>
-        <dt>RATING</dt><dd><span class="rating">STRONG BUY</span></dd>
-      </dl>
+      <div class="btns">
+        <a class="btn buy" href="#contact">Buy $LKSY</a>
+        <a class="btn" href="#work">See the work ↓</a>
+      </div>
     </div>
-    <div class="chart-wrap" id="chartWrap">
-      <canvas id="chart" role="img" aria-label="Playful candlestick chart of LKSY rising from July 2022 to today, marked with career milestones"></canvas>
-      <div class="tip" id="tip"></div>
+
+    <div class="chart-box">
+      <div class="chart-head"><span class="label">LKSY · monthly · Jul 2022 – now</span><span class="label">Hover for milestones</span></div>
+      <div class="chart-wrap" id="chartWrap">
+        <canvas id="chart" role="img" aria-label="Playful candlestick chart of LKSY rising from July 2022 to today, marked with career milestones"></canvas>
+        <div class="tip" id="tip"></div>
+      </div>
     </div>
-    <div class="chart-legend"><span><i class="amber">┆</i> milestone</span><span>hover the chart for the story</span><span>price is simulated · milestones are real</span></div>
-  </section>
 
-  <!-- 2 · POSITIONS -->
-  <section class="panel" id="positions" aria-labelledby="pos-h">
-    <div class="ph"><span id="pos-h">Positions · 2026 · Vibe-coded</span><span class="muted">5 holdings</span></div>
-    <table>
-      <thead><tr><th>Sym</th><th>Project</th><th>Status</th><th>Trend</th><th></th></tr></thead>
-      <tbody>
-        <tr>
-          <td class="tk">LDBR</td>
-          <td class="c-name"><span class="pname">Load-Bearing</span><span class="pdesc">Free system design course. 100+ lessons from “what happens when you tap a button” to sharding, sagas and staff-level tradeoffs, with a canvas that grades your architecture.</span><span class="stack">JavaScript · SSG · Vercel</span></td>
-          <td><span class="st live">LIVE</span></td>
-          <td class="c-spark"><svg class="spark" data-seed="7" viewBox="0 0 110 36"></svg></td>
-          <td class="c-go"><a class="go" href="https://easy-system-design.vercel.app/">OPEN ↗</a></td>
-        </tr>
-        <tr>
-          <td class="tk">LFIN</td>
-          <td class="c-name"><span class="pname">LearnFinance</span><span class="pdesc">Gamified, India-first finance curriculum, zero to advanced — because most finance content assumes a 401(k) and an S&amp;P 500.</span><span class="stack">Astro · Tailwind · MDX</span></td>
-          <td><span class="st live">LIVE</span></td>
-          <td class="c-spark"><svg class="spark" data-seed="21" viewBox="0 0 110 36"></svg></td>
-          <td class="c-go"><a class="go" href="https://learnfinance-tau.vercel.app">OPEN ↗</a></td>
-        </tr>
-        <tr>
-          <td class="tk">SYSD</td>
-          <td class="c-name"><span class="pname">sysdesign-academy</span><span class="pdesc">The course, rebuilt production-grade: MDX content pipeline, typed lesson loader, auth and persistence, unit tests.</span><span class="stack">Next.js · TypeScript · Supabase · Vitest</span></td>
-          <td><span class="st pre">PRE-IPO</span></td>
-          <td class="c-spark"><svg class="spark" data-seed="3" viewBox="0 0 110 36"></svg></td>
-          <td class="c-go"><span class="dim go">IN DEV</span></td>
-        </tr>
-        <tr>
-          <td class="tk">QNT</td>
-          <td class="c-name"><span class="pname">NSE Quant Screeners</span><span class="pdesc">Growth, quality and income screens over the NSE F&amp;O universe, built on real financial statements. Backtests for momentum, overnight and variance-risk-premium strategies.</span><span class="stack">Python · pandas · Kite Connect · yfinance</span></td>
-          <td><span class="st dark">DARK POOL</span></td>
-          <td class="c-spark"><svg class="spark" data-seed="42" viewBox="0 0 110 36"></svg></td>
-          <td class="c-go"><span class="dim go">PRIVATE</span></td>
-        </tr>
-        <tr>
-          <td class="tk">AICP</td>
-          <td class="c-name"><span class="pname">AI Component Playground</span><span class="pdesc">Generate React components from a prompt, with live preview and zip export.</span><span class="stack">React · Express · Gemini · Prisma</span></td>
-          <td><span class="st live">SHIPPED</span></td>
-          <td class="c-spark"><svg class="spark" data-seed="11" viewBox="0 0 110 36"></svg></td>
-          <td class="c-go"><a class="go" href="https://github.com/Lakshya5025/ai-component-playground">CODE ↗</a></td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="disclosure"><b>DISCLOSURE:</b> every position above is vibe-coded — written mostly by AI agents. The specs, product calls, architecture, review and deployment are mine. Knowing what to ask for and when to throw a working version away is the skill being traded here.</p>
-  </section>
-
-  <!-- 3 · ORDER BOOK -->
-  <section class="panel" id="book" aria-labelledby="book-h">
-    <div class="ph"><span id="book-h">Order book · Skills</span><span class="muted">depth</span></div>
-    <div class="book-head"><span>BID · WEB DESK</span><span>QUANT &amp; DATA · ASK</span></div>
-    <div class="book" id="bookRows"></div>
-    <div class="spread">SPREAD 0.00 — trades both sides</div>
-    <p class="also"><b>ALSO TRADED:</b> Java · C++ · PHP · Laravel · WebSockets · Prisma · Supabase · Storybook · Turborepo · Vitest · Stripe · Git · Linux</p>
-  </section>
-
-  <!-- 4 · HISTORY -->
-  <section class="panel" id="archive" aria-labelledby="arc-h">
-    <div class="ph"><span id="arc-h">Trade history · 2025 · Built by hand</span><span class="muted">where the fundamentals came from</span></div>
-    <table>
-      <thead><tr><th>Date</th><th>Project</th><th>Stack</th><th></th></tr></thead>
-      <tbody>
-        <tr><td class="amber">NOV 25</td><td class="c-name"><span class="pname">Quant Pro Path</span><span class="pdesc">Python and quantitative-finance foundations, week by week.</span></td><td class="c-stack stack">Python</td><td><a class="go" href="https://github.com/Lakshya5025/Quantitative-finance">↗</a></td></tr>
-        <tr><td class="amber">NOV 25</td><td class="c-name"><span class="pname">Collaborative Whiteboard</span><span class="pdesc">Excalidraw-style real-time canvas, from scratch.</span></td><td class="c-stack stack">Turborepo · Next.js · ws</td><td><a class="go" href="https://github.com/Lakshya5025/Excaliedraw-project">↗</a></td></tr>
-        <tr><td class="amber">OCT 25</td><td class="c-name"><span class="pname">AutoCost</span><span class="pdesc">Cost estimation with auth and transactional mail.</span></td><td class="c-stack stack">React · Express · Prisma · Postgres</td><td><a class="go" href="https://github.com/Lakshya5025/AutoCost">↗</a></td></tr>
-        <tr><td class="amber">OCT 25</td><td class="c-name"><span class="pname">Real-time Chat</span><span class="pdesc">Messaging over raw WebSockets, no socket library.</span></td><td class="c-stack stack">React · ws</td><td><a class="go" href="https://github.com/Lakshya5025/Chat-App">↗</a></td></tr>
-        <tr><td class="amber">OCT 25</td><td class="c-name"><span class="pname">HelpDesk</span><span class="pdesc">Hackathon ticketing system — clients file, agents resolve.</span></td><td class="c-stack stack">MERN · JWT</td><td><a class="go" href="https://help-desk-hackathon-project.vercel.app">↗</a></td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <!-- 5 · WIRE -->
-  <section class="panel" id="wire" aria-labelledby="wire-h">
-    <div class="ph"><span id="wire-h">Newswire · LKSY</span><span class="muted">latest first</span></div>
-    <ol class="wire">
-      <li><time>OCT 2026</time><span><span class="new">NEW</span><span class="hl">LKSY lists on lakshya.si.</span> You're reading the prospectus.</span></li>
-      <li><time>SEP 2026</time><span><span class="hl">Ships AI Component Playground</span> — prompt in, React out.</span></li>
-      <li><time>AUG 2026</time><span><span class="hl">LearnFinance goes live.</span> India-first finance, gamified.</span></li>
-      <li><time>JUL 2026</time><span><span class="hl">Load-Bearing launches:</span> 100+ system design lessons, free, no signup.</span></li>
-      <li><time>2026</time><span><span class="hl">Switches desk strategy to AI-leveraged.</span> Every 2026 project is vibe-coded — and labelled that way.</span></li>
-      <li><time>2026</time><span><span class="hl">Completes B.Tech CSE</span>, Lovely Professional University.</span></li>
-      <li><time>NOV 2025</time><span><span class="hl">Opens quant desk</span> — Python and quant foundations, written by hand. Ships whiteboard clone.</span></li>
-      <li><time>OCT 2025</time><span><span class="hl">Hackathon:</span> ships HelpDesk. Real-time chat and AutoCost follow.</span></li>
-      <li><time>2025</time><span><span class="hl">Certified:</span> Full-Stack Bootcamp (Udemy), Networking Basics (Cisco).</span></li>
-      <li><time>2024</time><span><span class="hl">Certified:</span> Data Structures &amp; Algorithms (Coursera). First portfolio ships.</span></li>
-      <li><time>JUL 2022</time><span><span class="hl">IPO.</span> LKSY lists on GitHub; B.Tech begins.</span></li>
-    </ol>
-  </section>
-
-  <!-- 6 · CONTACT -->
-  <section class="panel" id="contact" aria-labelledby="ct-h">
-    <div class="ph"><span>Order entry</span><span class="muted">desk open</span></div>
-    <div class="ticket">
-      <div>
-        <h2 id="ct-h">Buy <span>$LKSY</span><br>before it re-rates.</h2>
-        <p>Open to full-stack and product engineering roles, freelance builds and interesting collaborations — especially anything where web meets finance.</p>
+    <!-- work -->
+    <section id="work" aria-labelledby="work-h">
+      <div class="sec-title">
+        <p class="label">01 · Positions</p>
+        <h2 id="work-h">Work</h2>
+        <p>What I've shipped in 2026. Every one of these is vibe-coded — and I'd rather say so.</p>
       </div>
-      <div class="slip">
-        <div class="slip-row"><span>SIDE</span><span class="up">BUY</span></div>
-        <div class="slip-row"><span>SYMBOL</span><span>LKSY:DEV</span></div>
-        <div class="slip-row"><span>TYPE</span><span>FULL-TIME · FREELANCE · COLLAB</span></div>
-        <div class="slip-row"><span>SETTLEMENT</span><span>T+0 · replies fast</span></div>
-        <a class="exec buy" href="https://www.linkedin.com/in/lakshya123">Execute on LinkedIn ↗</a>
-        <a class="exec alt" href="https://github.com/Lakshya5025">Inspect on GitHub ↗</a>
-        <a class="exec alt" href="https://www.instagram.com/lakshya.gupta.05">Follow on Instagram ↗</a>
-        <p class="fine">Past performance is a strong indicator of future shipping.</p>
+      <ul class="projects">
+        <li class="proj"><a href="https://easy-system-design.vercel.app/">
+          <span class="tk">LDBR</span>
+          <div class="body"><h3>Load-Bearing <span class="arrow">↗</span></h3><p>A free system design course — 100+ lessons and a canvas that grades your architecture.</p><div class="stack">JavaScript · SSG · Vercel</div></div>
+          <span class="st live">LIVE</span>
+        </a></li>
+        <li class="proj"><a href="https://learnfinance-tau.vercel.app">
+          <span class="tk">LFIN</span>
+          <div class="body"><h3>LearnFinance <span class="arrow">↗</span></h3><p>Gamified, India-first finance, from zero to advanced.</p><div class="stack">Astro · Tailwind · MDX</div></div>
+          <span class="st live">LIVE</span>
+        </a></li>
+        <li class="proj"><a href="https://github.com/Lakshya5025/ai-component-playground">
+          <span class="tk">AICP</span>
+          <div class="body"><h3>AI Component Playground <span class="arrow">↗</span></h3><p>Describe a React component, get a live preview and a zip.</p><div class="stack">React · Express · Gemini · Prisma</div></div>
+          <span class="st live">SHIPPED</span>
+        </a></li>
+        <li class="proj"><div>
+          <span class="tk">SYSD</span>
+          <div class="body"><h3>sysdesign-academy</h3><p>The system design course, rebuilt production-grade with tests.</p><div class="stack">Next.js · TypeScript · Supabase · Vitest</div></div>
+          <span class="st pre">PRE-IPO</span>
+        </div></li>
+        <li class="proj"><div>
+          <span class="tk">QNT</span>
+          <div class="body"><h3>NSE Quant Screeners</h3><p>Fundamental screens and backtests over the NSE F&amp;O universe.</p><div class="stack">Python · pandas · Kite Connect</div></div>
+          <span class="st dark">PRIVATE</span>
+        </div></li>
+      </ul>
+      <p class="disclosure"><b>Disclosure:</b> I write the specs, make the product calls, review the output and ship. The AI writes most of the keystrokes.</p>
+
+      <div class="sub">
+        <p class="label">Earlier · 2025 · Built by hand</p>
       </div>
+      <ul class="earlier">
+        <li><a href="https://help-desk-hackathon-project.vercel.app"><strong>HelpDesk ↗</strong><span>Hackathon ticketing system</span><div class="mono">MERN · JWT</div></a></li>
+        <li><a href="https://github.com/Lakshya5025/Excaliedraw-project"><strong>Collaborative Whiteboard ↗</strong><span>Real-time drawing canvas</span><div class="mono">Turborepo · Next.js · ws</div></a></li>
+        <li><a href="https://github.com/Lakshya5025/Chat-App"><strong>Real-time Chat ↗</strong><span>Messaging over raw WebSockets</span><div class="mono">React · ws</div></a></li>
+        <li><a href="https://github.com/Lakshya5025/AutoCost"><strong>AutoCost ↗</strong><span>Cost estimation with auth and mail</span><div class="mono">React · Express · Prisma · Postgres</div></a></li>
+        <li><a href="https://github.com/Lakshya5025/Quantitative-finance"><strong>Quant Pro Path ↗</strong><span>Python and quant-finance foundations</span><div class="mono">Python</div></a></li>
+      </ul>
+    </section>
+
+    <!-- skills -->
+    <section id="skills" aria-labelledby="skills-h">
+      <div class="sec-title">
+        <p class="label">02 · Order book</p>
+        <h2 id="skills-h">Skills</h2>
+      </div>
+      <div class="book">
+        <div class="book-head label"><span>Web desk</span><span>Quant &amp; data</span></div>
+        <div id="bookRows"></div>
+      </div>
+      <p class="also">Also: Java · C++ · PHP · Laravel · WebSockets · Prisma · Supabase · Vitest · Git · Linux</p>
+    </section>
+
+    <!-- timeline -->
+    <section id="timeline" aria-labelledby="tl-h">
+      <div class="sec-title">
+        <p class="label">03 · Newswire</p>
+        <h2 id="tl-h">Timeline</h2>
+      </div>
+      <ol class="timeline">
+        <li><time>2026</time><p><b>Ships Load-Bearing, LearnFinance and AI Component Playground.</b> Switches to building with AI agents.</p></li>
+        <li><time>2026</time><p><b>B.Tech, Computer Science</b> — Lovely Professional University.</p></li>
+        <li><time>2025</time><p><b>Builds by hand:</b> HelpDesk at a hackathon, real-time chat, a whiteboard clone. Starts quant finance in Python.</p></li>
+        <li><time>2025</time><p><b>Certified:</b> Full-Stack Web Development (Udemy), Networking Basics (Cisco).</p></li>
+        <li><time>2024</time><p><b>Certified:</b> Data Structures &amp; Algorithms (Coursera). First portfolio ships.</p></li>
+        <li><time>2022</time><p><b>IPO.</b> Joins GitHub and starts a B.Tech in CSE.</p></li>
+      </ol>
+    </section>
+  </div>
+
+  <!-- contact -->
+  <section class="contact" id="contact" aria-labelledby="ct-h">
+    <div class="wrap">
+      <p class="label">04 · Order entry</p>
+      <h2 id="ct-h">Buy <span>$LKSY</span></h2>
+      <p>Open to full-stack and product engineering roles, freelance builds and collaborations — especially where web meets finance.</p>
+      <div class="btns">
+        <a class="btn buy" href="https://www.linkedin.com/in/lakshya123">Message on LinkedIn ↗</a>
+        <a class="btn" href="https://github.com/Lakshya5025">GitHub ↗</a>
+      </div>
+      <p class="fine">Past performance is a strong indicator of future shipping.</p>
     </div>
   </section>
 </main>
 
-<footer>© <span id="yr">2026</span> Lakshya Gupta · lakshya.si · press <kbd>/</kbd> for the terminal</footer>
+<footer>
+  <div class="wrap label">
+    <span>© <span id="yr">2026</span> Lakshya Gupta · lakshya.si</span>
+    <button type="button" id="cliBtn">Terminal <kbd>/</kbd></button>
+  </div>
+</footer>
 
-<div class="cli">
+<div class="cli" id="cli" aria-hidden="true">
   <div class="cli-log" id="log" aria-live="polite"></div>
   <form id="cliForm" autocomplete="off">
     <label for="cmd">LKSY&gt;</label>
-    <input id="cmd" placeholder="type 'help' — or press 1–6 to jump" spellcheck="false">
-    <span class="hint"><kbd>/</kbd> focus · <kbd>esc</kbd> close</span>
+    <input id="cmd" placeholder="type 'help' · esc to close" spellcheck="false" tabindex="-1">
   </form>
 </div>
 
 <script>
 (() => {
   const $ = s => document.querySelector(s);
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  $('#yr').textContent = new Date().getFullYear();
 
   // seeded RNG so the chart looks the same for everyone
   const rng = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
     t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
 
-  /* ---------- boot ---------- */
-  if (!reduce && !sessionStorageGet('booted')) {
-    const boot = document.createElement('div'); boot.id = 'boot';
-    boot.innerHTML = '<span class="skip">click to skip</span>';
-    document.body.appendChild(boot);
-    const lines = ['> dial lakshya.si ......................... CONNECTED', '> auth guest@terminal ..................... OK',
-      '> load LKSY:DEV  [web desk] [quant desk] .. OK', '> stream market data ...................... LIVE', '> welcome. rating: STRONG BUY'];
-    let i = 0; const end = () => { boot.classList.add('done'); setTimeout(() => boot.remove(), 400); sessionStorageSet('booted', 1); };
-    const tick = () => { if (i < lines.length) { const p = document.createElement('p'); p.textContent = lines[i++]; boot.appendChild(p); setTimeout(tick, 220); } else setTimeout(end, 350); };
-    boot.onclick = end; tick();
-  }
-  function sessionStorageGet(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }
-  function sessionStorageSet(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
-
-  /* ---------- clock ---------- */
-  const clock = () => $('#clock').textContent = 'IST ' + new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata' });
-  clock(); setInterval(clock, 1000);
-  $('#yr').textContent = new Date().getFullYear();
-
-  /* ---------- chart data: one candle per month since Jul 2022 ---------- */
-  const MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  /* ---------- chart: one candle per month since Jul 2022 ---------- */
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const now = new Date(); const n = (now.getFullYear() - 2022) * 12 + now.getMonth() - 6 + 1;
   const label = i => MONTHS[(6 + i) % 12] + ' ' + (2022 + Math.floor((6 + i) / 12));
-  const idx = (y, m) => (y - 2022) * 12 + m - 7; // m is 1-based
+  const idx = (y, m) => (y - 2022) * 12 + m - 7;
   const milestones = [
-    [idx(2022, 7), 'IPO', 'Joins GitHub. B.Tech CSE begins at LPU.'],
-    [idx(2024, 4), 'PORTFOLIO', 'First portfolio site ships. DSA certified.'],
-    [idx(2025, 10), 'HACKATHON', 'HelpDesk at a hackathon. Chat app + AutoCost.'],
-    [idx(2025, 11), 'QUANT DESK', 'Starts quant finance by hand: Python foundations. Whiteboard clone ships.'],
-    [idx(2026, 7), 'LOAD-BEARING', '100+ lesson system design course goes live.'],
-    [idx(2026, 8), 'LEARNFINANCE', 'India-first finance curriculum goes live.'],
+    [idx(2022, 7), 'IPO', 'Joins GitHub. B.Tech CSE begins.'],
+    [idx(2024, 4), 'Portfolio', 'First portfolio ships. DSA certified.'],
+    [idx(2025, 10), 'Hackathon', 'HelpDesk, real-time chat and AutoCost — built by hand.'],
+    [idx(2026, 7), 'Load-Bearing', 'System design course goes live. AI-built era begins.'],
   ].filter(m => m[0] < n);
   const isMs = new Map(milestones.map(m => [m[0], m]));
 
@@ -418,140 +335,92 @@
   const k = Math.log(20.26) / lp;
   const candles = logs.map((l, i) => {
     const c = 100 * Math.exp(l * k), o = i ? 100 * Math.exp(logs[i - 1] * k) : 92;
-    return { o, c, h: Math.max(o, c) * (1 + r() * 0.05), l: Math.min(o, c) * (1 - r() * 0.05), v: 0.25 + r() * 0.6 + (isMs.has(i) ? 0.9 : 0) };
+    return { o, c, h: Math.max(o, c) * (1 + r() * 0.05), l: Math.min(o, c) * (1 - r() * 0.05) };
   });
-  const last = candles[candles.length - 1], base = last.c;
+  const last = candles[candles.length - 1];
+  $('#price').textContent = '₹' + last.c.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-  /* ---------- chart render ---------- */
   const cv = $('#chart'), ctx = cv.getContext('2d'), wrap = $('#chartWrap'), tip = $('#tip');
   const C = { up: css('--green'), down: css('--red'), amber: css('--amber'), line: css('--line'), dim: css('--dim'), text: css('--text'), bg: css('--bg') };
-  let W, H, hover = -1, hy = 0;
-  const pad = { l: 12, r: 72, t: 56, b: 24 };
+  const pad = { l: 18, r: 18, t: 40, b: 28 };
+  let W, H, hover = -1;
+  const hi = Math.max(...candles.map(c => c.h)), lo = Math.min(...candles.map(c => c.l));
+  const cw = () => (W - pad.l - pad.r) / n;
+  const x = i => pad.l + cw() * i + cw() / 2;
+  const y = p => pad.t + (H - pad.t - pad.b) * (1 - (Math.log(p) - Math.log(lo)) / (Math.log(hi) - Math.log(lo)));
   function size() { const d = devicePixelRatio || 1; W = wrap.clientWidth; H = wrap.clientHeight; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); draw(); }
   function draw() {
     ctx.clearRect(0, 0, W, H);
-    const cw = (W - pad.l - pad.r) / n, volH = (H - pad.t - pad.b) * 0.16, ph = H - pad.t - pad.b - volH - 8;
-    const hi = Math.max(...candles.map(c => c.h)), lo = Math.min(...candles.map(c => c.l));
-    // log scale so the early years are readable
-    const y = p => pad.t + ph * (1 - (Math.log(p) - Math.log(lo)) / (Math.log(hi) - Math.log(lo)));
-    const x = i => pad.l + cw * i + cw / 2;
-    ctx.font = '10px JetBrains Mono, monospace'; ctx.lineWidth = 1;
-    // grid + price axis
-    for (let g = 0; g <= 4; g++) {
-      const p = Math.exp(Math.log(lo) + (Math.log(hi) - Math.log(lo)) * g / 4), gy = y(p);
-      ctx.strokeStyle = C.line; ctx.beginPath(); ctx.moveTo(pad.l, gy); ctx.lineTo(W - pad.r, gy); ctx.stroke();
-      ctx.fillStyle = C.dim; ctx.fillText(p.toFixed(0), W - pad.r + 8, gy + 3);
-    }
-    // year labels
+    ctx.font = '11px JetBrains Mono, monospace'; ctx.lineWidth = 1;
     ctx.fillStyle = C.dim;
-    candles.forEach((_, i) => { if ((6 + i) % 12 === 0) ctx.fillText(2022 + (6 + i) / 12, x(i) - 12, H - 8); });
-    // milestones (labels staggered in 3 rows)
-    milestones.forEach(([i, name], j) => {
-      ctx.strokeStyle = C.amber; ctx.globalAlpha = .45; ctx.setLineDash([2, 4]);
-      ctx.beginPath(); ctx.moveTo(x(i), pad.t - 6 - (j % 3) * 14 + 4); ctx.lineTo(x(i), H - pad.b); ctx.stroke();
+    candles.forEach((_, i) => { if ((6 + i) % 12 === 0) ctx.fillText(2022 + (6 + i) / 12, x(i) - 14, H - 9); });
+    milestones.forEach(([i, name]) => {
+      ctx.strokeStyle = C.amber; ctx.globalAlpha = .35; ctx.setLineDash([2, 4]);
+      ctx.beginPath(); ctx.moveTo(x(i), pad.t - 8); ctx.lineTo(x(i), H - pad.b); ctx.stroke();
       ctx.setLineDash([]); ctx.globalAlpha = 1; ctx.fillStyle = C.amber;
-      const tw = ctx.measureText(name).width, tx = Math.min(Math.max(x(i) - tw / 2, pad.l), W - pad.r - tw);
-      ctx.fillText(name, tx, pad.t - 10 - (j % 3) * 14);
+      const tw = ctx.measureText(name).width;
+      ctx.fillText(name, Math.min(Math.max(x(i) - tw / 2, pad.l), W - pad.r - tw), pad.t - 14);
     });
-    // candles + volume
-    const bw = Math.max(1, cw * 0.62);
+    const bw = Math.max(1, cw() * 0.6);
     candles.forEach((c, i) => {
-      const col = c.c >= c.o ? C.up : C.down; ctx.strokeStyle = ctx.fillStyle = col;
+      ctx.strokeStyle = ctx.fillStyle = c.c >= c.o ? C.up : C.down;
+      ctx.globalAlpha = hover < 0 || hover === i ? 1 : .55;
       ctx.beginPath(); ctx.moveTo(x(i), y(c.h)); ctx.lineTo(x(i), y(c.l)); ctx.stroke();
       const top = y(Math.max(c.o, c.c)); ctx.fillRect(x(i) - bw / 2, top, bw, Math.max(1, y(Math.min(c.o, c.c)) - top));
-      ctx.globalAlpha = .3; const vh = volH * c.v / 1.8; ctx.fillRect(x(i) - bw / 2, H - pad.b - vh, bw, vh); ctx.globalAlpha = 1;
     });
-    // last price line + tag
-    const ly = y(last.c);
-    ctx.strokeStyle = C.up; ctx.setLineDash([4, 3]); ctx.beginPath(); ctx.moveTo(pad.l, ly); ctx.lineTo(W - pad.r, ly); ctx.stroke(); ctx.setLineDash([]);
-    ctx.fillStyle = C.up; ctx.fillRect(W - pad.r + 2, ly - 9, pad.r - 4, 18);
-    ctx.fillStyle = C.bg; ctx.font = 'bold 10px JetBrains Mono, monospace'; ctx.fillText(last.c.toFixed(2), W - pad.r + 6, ly + 4);
-    // crosshair
-    if (hover >= 0) {
-      ctx.strokeStyle = C.text; ctx.globalAlpha = .35; ctx.setLineDash([3, 3]);
-      ctx.beginPath(); ctx.moveTo(x(hover), pad.t); ctx.lineTo(x(hover), H - pad.b); ctx.moveTo(pad.l, hy); ctx.lineTo(W - pad.r, hy); ctx.stroke();
-      ctx.setLineDash([]); ctx.globalAlpha = 1;
-    }
-    return { x, cw };
+    ctx.globalAlpha = 1;
   }
   wrap.addEventListener('mousemove', e => {
-    const rect = wrap.getBoundingClientRect(), mx = e.clientX - rect.left, cw = (W - pad.l - pad.r) / n;
-    hover = Math.max(0, Math.min(n - 1, Math.floor((mx - pad.l) / cw))); hy = e.clientY - rect.top; draw();
+    const rect = wrap.getBoundingClientRect(), mx = e.clientX - rect.left, my = e.clientY - rect.top;
+    hover = Math.max(0, Math.min(n - 1, Math.floor((mx - pad.l) / cw()))); draw();
     const c = candles[hover], m = isMs.get(hover), chg = (c.c / c.o - 1) * 100;
-    tip.innerHTML = `<b>${label(hover)}</b><br>O ${c.o.toFixed(2)}  H ${c.h.toFixed(2)}<br>L ${c.l.toFixed(2)}  C ${c.c.toFixed(2)}<br><span class="${chg >= 0 ? 'up' : 'down'}">${chg >= 0 ? '▲' : '▼'} ${chg.toFixed(2)}%</span>` +
-      (m ? `<br><b>◆ ${m[1]}</b><br>${m[2]}` : '');
+    tip.innerHTML = `<b>${label(hover)}</b><br>Close ${c.c.toFixed(2)} <span style="color:${chg >= 0 ? C.up : C.down}">${chg >= 0 ? '▲' : '▼'}${Math.abs(chg).toFixed(1)}%</span>` + (m ? `<br><b>◆ ${m[1]}</b><br>${m[2]}` : '');
     tip.style.opacity = 1;
-    const tw = tip.offsetWidth; tip.style.left = (mx + 16 + tw > W ? mx - tw - 16 : mx + 16) + 'px'; tip.style.top = Math.max(8, hy - 40) + 'px';
+    const tw = tip.offsetWidth; tip.style.left = (mx + 16 + tw > W ? mx - tw - 16 : mx + 16) + 'px'; tip.style.top = Math.max(8, my - 30) + 'px';
   });
   wrap.addEventListener('mouseleave', () => { hover = -1; tip.style.opacity = 0; draw(); });
   new ResizeObserver(size).observe(wrap);
 
-  /* ---------- live tick ---------- */
-  const priceEl = $('#price'), chgEl = $('#chg');
-  const fmt = v => v.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const paint = prev => {
-    priceEl.textContent = '₹' + fmt(last.c);
-    const d = last.c - 100; chgEl.textContent = `▲ +${fmt(d)} (+${fmt(d)}%)`;
-    if (prev !== undefined) { priceEl.classList.remove('flash-up', 'flash-down'); void priceEl.offsetWidth; priceEl.classList.add(last.c >= prev ? 'flash-up' : 'flash-down'); }
-  };
-  paint();
-  if (!reduce) setInterval(() => {
-    const prev = last.c; last.c = Math.min(base * 1.012, Math.max(base * 0.988, last.c * (1 + (Math.random() - 0.48) * 0.004)));
-    last.h = Math.max(last.h, last.c); last.l = Math.min(last.l, last.c); paint(prev); draw();
-  }, 1100);
-
-  /* ---------- sparklines ---------- */
-  document.querySelectorAll('.spark').forEach(svg => {
-    const rr = rng(+svg.dataset.seed); let v = 18; const pts = [];
-    for (let i = 0; i < 24; i++) { v = Math.max(4, Math.min(32, v - (rr() - 0.38) * 6)); pts.push(`${(i * 110 / 23).toFixed(1)},${v.toFixed(1)}`); }
-    const up = v < 18;
-    svg.innerHTML = `<polyline fill="none" stroke="${up ? C.up : C.down}" stroke-width="1.5" points="${pts.join(' ')}"/>`;
-  });
-
-  /* ---------- order book ---------- */
-  const bids = ['TypeScript', 'React', 'Next.js', 'Node / Express', 'Django', 'Angular', 'Astro', 'Tailwind'];
-  const asks = ['Python', 'pandas', 'PostgreSQL', 'Kite Connect', 'MongoDB', 'yfinance', 'MySQL', 'SQL'];
-  $('#bookRows').innerHTML = bids.map((b, i) => {
-    const w = 95 - i * 10;
-    return `<div class="book-row"><div class="lvl bid" style="--w:${w}%"><span>${b}</span></div><div class="lvl ask" style="--w:${w - 4}%"><span>${asks[i]}</span></div></div>`;
-  }).join('');
+  /* ---------- skills order book ---------- */
+  const bids = ['TypeScript', 'React', 'Next.js', 'Node / Express', 'Django', 'Angular', 'Tailwind'];
+  const asks = ['Python', 'pandas', 'PostgreSQL', 'Kite Connect', 'MongoDB', 'MySQL', 'yfinance'];
+  $('#bookRows').innerHTML = bids.map((b, i) =>
+    `<div class="book-row"><div class="lvl bid" style="--w:${96 - i * 11}%"><span>${b}</span></div><div class="lvl ask" style="--w:${92 - i * 11}%"><span>${asks[i]}</span></div></div>`).join('');
 
   /* ---------- nav highlight ---------- */
-  const keys = [...document.querySelectorAll('.fkeys a')];
+  const links = [...document.querySelectorAll('nav a')];
   const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) keys.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
-  }), { rootMargin: '-40% 0px -55% 0px' });
-  document.querySelectorAll('main > section').forEach(s => io.observe(s));
+    if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('section[id]').forEach(s => io.observe(s));
 
-  /* ---------- command line ---------- */
-  const log = $('#log'), input = $('#cmd');
-  const go = id => () => { document.getElementById(id).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); return `→ ${id.toUpperCase()}`; };
-  const open = url => () => { window.open(url, '_blank', 'noopener'); return `opening ${url}`; };
+  /* ---------- optional command line ---------- */
+  const cli = $('#cli'), log = $('#log'), input = $('#cmd');
+  const toggle = on => { cli.classList.toggle('open', on); cli.setAttribute('aria-hidden', !on); input.tabIndex = on ? 0 : -1; on ? input.focus() : input.blur(); };
+  const go = id => () => { document.getElementById(id).scrollIntoView(); return '→ ' + id; };
+  const open = url => () => { window.open(url, '_blank', 'noopener'); return 'opening ' + url; };
   const cmds = {
-    help: () => 'commands: work · skills · history · news · hire · github · linkedin · whoami · price · date · clear',
-    work: go('positions'), positions: go('positions'), projects: go('positions'),
-    skills: go('book'), book: go('book'), history: go('archive'), news: go('wire'), wire: go('wire'),
+    help: () => 'work · skills · timeline · hire · github · linkedin · whoami · clear',
+    work: go('work'), skills: go('skills'), timeline: go('timeline'),
     hire: () => (go('contact')(), 'routing order to desk… excellent decision.'), buy: () => cmds.hire(), contact: () => cmds.hire(),
     github: open('https://github.com/Lakshya5025'), linkedin: open('https://www.linkedin.com/in/lakshya123'),
-    whoami: () => 'Lakshya Gupta — full-stack developer. web desk + quant desk. Rajasthan, IN.',
-    price: () => `LKSY ₹${fmt(last.c)} · rating STRONG BUY · not financial advice`,
-    date: () => new Date().toString(), ls: () => 'positions/  book/  history/  news/  contact/',
-    sell: () => 'order rejected: no sellers found.', short: () => 'order rejected: borrow unavailable. try: buy',
-    sudo: () => 'permission denied. try: hire', clear: () => { log.innerHTML = ''; log.classList.remove('open'); return null; },
+    whoami: () => 'Lakshya Gupta — full-stack developer. web + quant. Rajasthan, IN.',
+    sell: () => 'order rejected: no sellers found.', sudo: () => 'permission denied. try: hire',
+    clear: () => { log.innerHTML = ''; return null; },
   };
-  const print = (t, cls) => { const p = document.createElement('p'); if (cls) p.className = cls; p.textContent = t; log.appendChild(p); log.classList.add('open'); log.scrollTop = log.scrollHeight; };
+  const print = (t, cls) => { const p = document.createElement('p'); if (cls) p.className = cls; p.textContent = t; log.appendChild(p); log.scrollTop = log.scrollHeight; };
   $('#cliForm').addEventListener('submit', e => {
     e.preventDefault(); const raw = input.value.trim(); if (!raw) return; input.value = '';
     print('LKSY> ' + raw, 'cmd');
     const f = cmds[raw.toLowerCase().split(/\s+/)[0]];
-    const out = f ? f() : `unknown command: ${raw}. type 'help'`;
+    const out = f ? f() : `unknown command. type 'help'`;
     if (out) print(out);
   });
+  $('#cliBtn').onclick = () => toggle(true);
   addEventListener('keydown', e => {
-    if (e.target === input) { if (e.key === 'Escape') { input.blur(); log.classList.remove('open'); } return; }
-    if (e.metaKey || e.ctrlKey || e.altKey || /input|textarea/i.test(e.target.tagName)) return;
-    if (e.key === '/') { e.preventDefault(); input.focus(); }
-    const k = +e.key; if (k >= 1 && k <= 6) keys[k - 1].click();
+    if (e.key === 'Escape') return toggle(false);
+    if (e.target === input || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === '/') { e.preventDefault(); toggle(true); }
   });
 })();
 </script>
