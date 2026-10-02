@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LKSY — Lakshya Gupta</title>
-<meta name="description" content="Lakshya Gupta, full-stack developer — web and quant finance. Trading as $LKSY.">
+<meta name="description" content="Lakshya Gupta, SDE 1 at FloBiz (myBillBook) — full-stack developer working across web and quant finance. Trading as $LKSY.">
 <meta property="og:title" content="$LKSY — Lakshya Gupta">
-<meta property="og:description" content="Full-stack developer. Web + quant. Rating: strong buy.">
+<meta property="og:description" content="SDE 1 at FloBiz (myBillBook). Web + quant. Rating: strong buy.">
 <meta property="og:url" content="https://lakshya.si">
 <meta name="theme-color" content="#08090b">
 <link rel="canonical" href="https://lakshya.si/">
@@ -42,7 +42,7 @@
   nav { display: flex; gap: 4px; }
   nav a { font: 500 13px var(--mono); color: var(--muted); padding: 8px 12px; }
   nav a:hover, nav a.on { color: var(--amber); }
-  @media (max-width: 520px) { nav a { padding: 8px 7px; font-size: 12px; } }
+  @media (max-width: 560px) { nav a { padding: 8px 6px; font-size: 12px; } nav a.hide-sm { display: none; } }
 
   /* ---------- hero ---------- */
   .hero { padding: 64px 0 40px; display: grid; gap: 40px; }
@@ -88,6 +88,24 @@
   .sec-title h2 { font: 400 clamp(44px, 7vw, 80px)/.95 var(--display); text-transform: uppercase; margin: 10px 0 0; }
   .sec-title p { color: var(--muted); margin: 16px 0 0; max-width: 40em; }
   .sub { margin: 56px 0 16px; }
+
+  /* experience */
+  .job { border: 1px solid var(--line); background: var(--panel); }
+  .job-head { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px 32px; padding: 28px; border-bottom: 1px solid var(--line); }
+  .job h3 { font: 400 clamp(32px, 4.5vw, 48px)/1 var(--display); text-transform: uppercase; margin: 0; letter-spacing: .01em; }
+  .job-head p { margin: 10px 0 0; color: var(--muted); }
+  .promo { font: 700 12px var(--mono); letter-spacing: .08em; color: var(--green); background: rgb(25 230 140 / .1); padding: 6px 10px; white-space: nowrap; }
+  .roles { list-style: none; margin: 0; padding: 0; }
+  .roles li { display: grid; grid-template-columns: 200px 1fr auto; gap: 6px 24px; align-items: center; padding: 20px 28px; border-bottom: 1px solid var(--line); }
+  .roles li:last-child { border-bottom: 0; }
+  .roles .when { font: 500 13px var(--mono); color: var(--amber); }
+  .roles strong { font-size: 18px; font-weight: 600; }
+  .roles .mono { font-size: 11px; letter-spacing: .08em; }
+  @media (max-width: 640px) {
+    .job-head, .roles li { padding: 20px; }
+    .roles li { grid-template-columns: 1fr auto; }
+    .roles strong { grid-column: 1 / -1; grid-row: 2; }
+  }
 
   /* projects */
   .projects { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
@@ -188,9 +206,10 @@
   <div class="wrap">
     <a class="logo" href="#top" aria-label="Top of page">$LKSY</a>
     <nav aria-label="Primary">
+      <a href="#experience">Experience</a>
       <a href="#work">Work</a>
       <a href="#skills">Skills</a>
-      <a href="#timeline">Timeline</a>
+      <a class="hide-sm" href="#timeline">Timeline</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
@@ -201,9 +220,9 @@
     <!-- hero -->
     <div class="hero">
       <div>
-      <p class="label">LKSY · Full-stack developer · Rajasthan, India</p>
+      <p class="label">LKSY · SDE 1 at FloBiz (myBillBook) · Rajasthan, India</p>
       <h1>Lakshya<br><span>Gupta</span></h1>
-      <p class="lead">I build web products <b>end-to-end and ship them</b> — TypeScript, React, Next.js, Node and Django — and quant tools for Indian markets in Python.</p>
+      <p class="lead">Software engineer at <b>FloBiz</b>, the team behind myBillBook. I build web products <b>end-to-end and ship them</b> — TypeScript, React, Next.js, Node and Django — and quant tools for Indian markets in Python.</p>
       <div class="quote">
         <span class="px" id="price">₹2,026.00</span>
         <span class="chg up">▲ +1,926% since 2022</span>
@@ -216,7 +235,7 @@
       </div>
       <dl class="profile">
         <dt>NAME</dt><dd>Lakshya Gupta</dd>
-        <dt>ROLE</dt><dd>Full-Stack Developer</dd>
+        <dt>ROLE</dt><dd>SDE 1 · FloBiz</dd>
         <dt>DESKS</dt><dd>Web · Quant finance</dd>
         <dt>EDU</dt><dd>B.Tech CSE · LPU · 2026</dd>
         <dt>LISTED</dt><dd>Jul 2022 (GitHub)</dd>
@@ -239,12 +258,33 @@
       </div>
     </div>
 
+    <!-- experience -->
+    <section id="experience" aria-labelledby="exp-h">
+      <div class="sec-title">
+        <p class="label">01 · Employer</p>
+        <h2 id="exp-h">Experience</h2>
+      </div>
+      <div class="job">
+        <div class="job-head">
+          <div>
+            <h3>FloBiz <span class="dim">· myBillBook</span></h3>
+            <p>GST billing, invoicing and accounting software for Indian small businesses.</p>
+          </div>
+          <span class="promo">▲ PROMOTED · INTERN → SDE 1</span>
+        </div>
+        <ol class="roles">
+          <li><span class="when">Jun 2026 — Present</span><strong>SDE 1</strong><span class="st live">CURRENT</span></li>
+          <li><span class="when">Dec 2025 — Jun 2026</span><strong>Software Development Engineer Intern</strong><span class="dim mono">INTERNSHIP</span></li>
+        </ol>
+      </div>
+    </section>
+
     <!-- work -->
     <section id="work" aria-labelledby="work-h">
       <div class="sec-title">
-        <p class="label">01 · Positions</p>
+        <p class="label">02 · Positions</p>
         <h2 id="work-h">Work</h2>
-        <p>What I've shipped in 2026. Every one of these is vibe-coded — and I'd rather say so.</p>
+        <p>Side projects I've shipped in 2026. Every one of these is vibe-coded — and I'd rather say so.</p>
       </div>
       <ul class="projects">
         <li class="proj"><a href="https://easy-system-design.vercel.app/">
@@ -296,7 +336,7 @@
     <!-- skills -->
     <section id="skills" aria-labelledby="skills-h">
       <div class="sec-title">
-        <p class="label">02 · Order book</p>
+        <p class="label">03 · Order book</p>
         <h2 id="skills-h">Skills</h2>
       </div>
       <div class="book">
@@ -309,7 +349,7 @@
         <ul>
           <li><span class="tk">SYSD</span>Rebuilding the system design course on Next.js + Supabase</li>
           <li><span class="tk">QNT</span>Screening the NSE F&amp;O universe on fundamentals</li>
-          <li><span class="tk">LKSY</span>Open to full-stack and product engineering roles</li>
+          <li><span class="tk">FLOB</span>Shipping myBillBook as SDE 1 at FloBiz</li>
         </ul>
       </div>
     </section>
@@ -317,12 +357,14 @@
     <!-- timeline -->
     <section id="timeline" aria-labelledby="tl-h">
       <div class="sec-title">
-        <p class="label">03 · Newswire</p>
+        <p class="label">04 · Newswire</p>
         <h2 id="tl-h">Timeline</h2>
       </div>
       <ol class="timeline">
+        <li><time>JUN 2026</time><p><b>Promoted to SDE 1 at FloBiz</b> (myBillBook) after the internship.</p></li>
         <li><time>2026</time><p><b>Ships Load-Bearing, LearnFinance and AI Component Playground.</b> Switches to building with AI agents.</p></li>
         <li><time>2026</time><p><b>B.Tech, Computer Science</b> — Lovely Professional University.</p></li>
+        <li><time>DEC 2025</time><p><b>Joins FloBiz</b> (myBillBook) as a Software Development Engineer Intern.</p></li>
         <li><time>2025</time><p><b>Builds by hand:</b> HelpDesk at a hackathon, real-time chat, a whiteboard clone. Starts quant finance in Python.</p></li>
         <li><time>2025</time><p><b>Certified:</b> Full-Stack Web Development (Udemy), Networking Basics (Cisco).</p></li>
         <li><time>2024</time><p><b>Certified:</b> Data Structures &amp; Algorithms (Coursera). First portfolio ships.</p></li>
@@ -336,15 +378,15 @@
   <section class="contact" id="contact" aria-labelledby="ct-h">
     <div class="wrap">
       <div>
-      <p class="label">04 · Order entry</p>
+      <p class="label">05 · Order entry</p>
       <h2 id="ct-h">Buy <span>$LKSY</span></h2>
-      <p>Open to full-stack and product engineering roles, freelance builds and collaborations — especially where web meets finance.</p>
+      <p>Currently SDE 1 at FloBiz. Always up for side projects, collaborations and good conversations — especially where web meets finance.</p>
       <p class="fine">Past performance is a strong indicator of future shipping.</p>
       </div>
       <div class="slip">
         <div class="slip-row"><span>SIDE</span><span class="up">BUY</span></div>
         <div class="slip-row"><span>SYMBOL</span><span>LKSY</span></div>
-        <div class="slip-row"><span>TYPE</span><span>Full-time · Freelance · Collab</span></div>
+        <div class="slip-row"><span>TYPE</span><span>Collab · Freelance · Chat</span></div>
         <a class="btn buy" href="https://www.linkedin.com/in/lakshya123">Execute on LinkedIn ↗</a>
         <a class="btn email" href="mailto:lakshyagupta916640@gmail.com">✉ lakshyagupta916640@gmail.com</a>
         <a class="btn" href="https://github.com/Lakshya5025">Inspect on GitHub ↗</a>
@@ -387,6 +429,8 @@
     [idx(2022, 7), 'IPO', 'Joins GitHub. B.Tech CSE begins.'],
     [idx(2024, 4), 'Portfolio', 'First portfolio ships. DSA certified.'],
     [idx(2025, 10), 'Hackathon', 'HelpDesk, real-time chat and AutoCost — built by hand.'],
+    [idx(2025, 12), 'FloBiz', 'Joins FloBiz (myBillBook) as SDE Intern.'],
+    [idx(2026, 6), 'SDE 1', 'Promoted to SDE 1 at FloBiz.'],
     [idx(2026, 7), 'Load-Bearing', 'System design course goes live. AI-built era begins.'],
   ].filter(m => m[0] < n);
   const isMs = new Map(milestones.map(m => [m[0], m]));
@@ -407,7 +451,7 @@
 
   const cv = $('#chart'), ctx = cv.getContext('2d'), wrap = $('#chartWrap'), tip = $('#tip');
   const C = { up: css('--green'), down: css('--red'), amber: css('--amber'), line: css('--line'), dim: css('--dim'), text: css('--text'), bg: css('--bg') };
-  const pad = { l: 18, r: 64, t: 40, b: 28 };
+  const pad = { l: 18, r: 64, t: 54, b: 28 };
   let W, H, hover = -1;
   const hi = Math.max(...candles.map(c => c.h)), lo = Math.min(...candles.map(c => c.l));
   const cw = () => (W - pad.l - pad.r) / n;
@@ -424,12 +468,12 @@
     }
     ctx.fillStyle = C.dim;
     candles.forEach((_, i) => { if ((6 + i) % 12 === 0) ctx.fillText(2022 + (6 + i) / 12, x(i) - 14, H - 9); });
-    milestones.forEach(([i, name]) => {
+    milestones.forEach(([i, name], j) => {
       ctx.strokeStyle = C.amber; ctx.globalAlpha = .35; ctx.setLineDash([2, 4]);
       ctx.beginPath(); ctx.moveTo(x(i), pad.t - 8); ctx.lineTo(x(i), H - pad.b); ctx.stroke();
       ctx.setLineDash([]); ctx.globalAlpha = 1; ctx.fillStyle = C.amber;
       const tw = ctx.measureText(name).width;
-      ctx.fillText(name, Math.min(Math.max(x(i) - tw / 2, pad.l), W - pad.r - tw), pad.t - 14);
+      ctx.fillText(name, Math.min(Math.max(x(i) - tw / 2, pad.l), W - pad.r - tw), pad.t - 14 - (j % 2) * 16);
     });
     const bw = Math.max(1, cw() * 0.6);
     candles.forEach((c, i) => {
@@ -481,12 +525,13 @@
   const go = id => () => { document.getElementById(id).scrollIntoView(); return '→ ' + id; };
   const open = url => () => { window.open(url, '_blank', 'noopener'); return 'opening ' + url; };
   const cmds = {
-    help: () => 'work · skills · timeline · hire · email · github · linkedin · whoami · clear',
+    help: () => 'experience · work · skills · timeline · hire · email · github · linkedin · whoami · clear',
     email: () => (location.href = 'mailto:lakshyagupta916640@gmail.com', 'lakshyagupta916640@gmail.com'),
     work: go('work'), skills: go('skills'), timeline: go('timeline'),
     hire: () => (go('contact')(), 'routing order to desk… excellent decision.'), buy: () => cmds.hire(), contact: () => cmds.hire(),
     github: open('https://github.com/Lakshya5025'), linkedin: open('https://www.linkedin.com/in/lakshya123'),
-    whoami: () => 'Lakshya Gupta — full-stack developer. web + quant. Rajasthan, IN.',
+    whoami: () => 'Lakshya Gupta — SDE 1 at FloBiz (myBillBook). web + quant. Rajasthan, IN.',
+    experience: go('experience'), exp: go('experience'),
     sell: () => 'order rejected: no sellers found.', sudo: () => 'permission denied. try: hire',
     clear: () => { log.innerHTML = ''; return null; },
   };
