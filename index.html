@@ -110,10 +110,16 @@
   .roles strong { font-size: 18px; font-weight: 600; }
   .roles .mono { font-size: 11px; letter-spacing: .08em; }
   @media (max-width: 640px) {
-    .job-head, .roles li { padding: 20px; }
+    .job-head, .roles li, .wins > div { padding: 20px; }
     .roles li { grid-template-columns: 1fr auto; }
     .roles strong { grid-column: 1 / -1; grid-row: 2; }
   }
+
+  .wins { display: grid; gap: 1px; background: var(--line); border-top: 1px solid var(--line); }
+  @media (min-width: 640px) { .wins { grid-template-columns: repeat(3, 1fr); } }
+  .wins > div { background: var(--panel); padding: 20px 28px; }
+  .wins strong { display: block; margin-top: 6px; font-size: 20px; font-weight: 600; }
+  .wins > div:first-child .label { color: var(--green); }
 
   /* projects */
   .projects { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
@@ -303,6 +309,11 @@
           <li><span class="when">Jun 2026 — Present</span><strong>SDE 1</strong><span class="st live">CURRENT</span></li>
           <li><span class="when">Dec 2025 — Jun 2026</span><strong>Software Development Engineer Intern</strong><span class="dim mono">INTERNSHIP</span></li>
         </ol>
+        <div class="wins">
+          <div><span class="label">Shipped</span><strong>Shared Ledger</strong></div>
+          <div><span class="label">Team</span><strong>OCR</strong></div>
+          <div><span class="label">Team</span><strong>Pricing</strong></div>
+        </div>
       </div>
     </section>
 
@@ -460,7 +471,7 @@
     [idx(2024, 4), 'Portfolio', 'First portfolio ships. DSA certified.'],
     [idx(2025, 10), 'Hackathon', 'HelpDesk, real-time chat and AutoCost — built by hand.'],
     [idx(2025, 12), 'FloBiz', 'Joins FloBiz (myBillBook) as SDE Intern.'],
-    [idx(2026, 6), 'SDE 1', 'Promoted to SDE 1 at FloBiz.'],
+    [idx(2026, 6), 'SDE 1', 'Promoted to SDE 1 at FloBiz. Shipped Shared Ledger; OCR and Pricing teams.'],
     [idx(2026, 7), 'Load-Bearing', 'System design course goes live. AI-built era begins.'],
   ].filter(m => m[0] < n);
   const isMs = new Map(milestones.map(m => [m[0], m]));
