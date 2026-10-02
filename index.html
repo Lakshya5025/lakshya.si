@@ -154,6 +154,7 @@
   .slip-row span:first-child { color: var(--dim); }
   .slip .btn { display: block; text-align: center; border: 0; border-bottom: 1px solid var(--line); }
   .slip .btn:last-child { border-bottom: 0; }
+  .slip .email { text-transform: none; letter-spacing: 0; font-weight: 500; overflow-wrap: anywhere; }
   .slip .btn:not(.buy):hover { background: var(--bg); color: var(--amber); }
   .contact h2 { font: 400 clamp(52px, 10vw, 128px)/.9 var(--display); text-transform: uppercase; margin: 16px 0 0; }
   .contact h2 span { color: var(--green); }
@@ -345,6 +346,7 @@
         <div class="slip-row"><span>SYMBOL</span><span>LKSY</span></div>
         <div class="slip-row"><span>TYPE</span><span>Full-time · Freelance · Collab</span></div>
         <a class="btn buy" href="https://www.linkedin.com/in/lakshya123">Execute on LinkedIn ↗</a>
+        <a class="btn email" href="mailto:lakshyagupta916640@gmail.com">✉ lakshyagupta916640@gmail.com</a>
         <a class="btn" href="https://github.com/Lakshya5025">Inspect on GitHub ↗</a>
       </div>
     </div>
@@ -479,7 +481,8 @@
   const go = id => () => { document.getElementById(id).scrollIntoView(); return '→ ' + id; };
   const open = url => () => { window.open(url, '_blank', 'noopener'); return 'opening ' + url; };
   const cmds = {
-    help: () => 'work · skills · timeline · hire · github · linkedin · whoami · clear',
+    help: () => 'work · skills · timeline · hire · email · github · linkedin · whoami · clear',
+    email: () => (location.href = 'mailto:lakshyagupta916640@gmail.com', 'lakshyagupta916640@gmail.com'),
     work: go('work'), skills: go('skills'), timeline: go('timeline'),
     hire: () => (go('contact')(), 'routing order to desk… excellent decision.'), buy: () => cmds.hire(), contact: () => cmds.hire(),
     github: open('https://github.com/Lakshya5025'), linkedin: open('https://www.linkedin.com/in/lakshya123'),
