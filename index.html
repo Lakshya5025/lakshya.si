@@ -30,7 +30,7 @@
   a { color: inherit; text-decoration: none; }
   :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
   ::selection { background: var(--amber); color: #000; }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
   .mono { font-family: var(--mono); }
   .label { font: 500 12px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
   .up { color: var(--green); }
@@ -45,7 +45,18 @@
   @media (max-width: 520px) { nav a { padding: 8px 7px; font-size: 12px; } }
 
   /* ---------- hero ---------- */
-  .hero { padding: 96px 0 48px; }
+  .hero { padding: 64px 0 40px; display: grid; gap: 40px; }
+  @media (min-width: 900px) { .hero { grid-template-columns: 1fr 340px; align-items: end; } }
+  .profile { margin: 0; border: 1px solid var(--line); background: var(--panel); display: grid; grid-template-columns: auto 1fr; font: 13px/1.5 var(--mono); }
+  .profile dt, .profile dd { margin: 0; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .profile dt { color: var(--amber); font-weight: 700; font-size: 11px; letter-spacing: .08em; border-right: 1px solid var(--line); }
+  .profile dt:last-of-type, .profile dd:last-of-type { border-bottom: 0; }
+  .profile .rating { background: var(--green); color: #000; font-weight: 700; padding: 1px 6px; }
+  .kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 24px; }
+  @media (min-width: 720px) { .kpis { grid-template-columns: repeat(4, 1fr); } }
+  .kpi { background: var(--bg); padding: 20px; }
+  .kpi b { display: block; font: 400 40px/1 var(--display); letter-spacing: .01em; }
+  .kpi span { display: block; margin-top: 8px; font-size: 13px; color: var(--muted); }
   .hero h1 { font: 400 clamp(64px, 13vw, 168px)/.85 var(--display); text-transform: uppercase; margin: 20px 0 0; }
   .hero h1 span { color: var(--amber); }
   .hero .lead { font-size: clamp(18px, 2.2vw, 22px); line-height: 1.55; color: var(--muted); max-width: 34em; margin: 32px 0 0; }
@@ -70,16 +81,18 @@
   .tip b { color: var(--amber); }
 
   /* ---------- sections ---------- */
-  section { padding: 112px 0 0; }
-  .sec-title { margin-bottom: 40px; }
+  section { padding: 88px 0 0; }
+  .sec-title { margin-bottom: 32px; }
+  .split { display: grid; gap: 0 64px; }
+  @media (min-width: 900px) { .split { grid-template-columns: 1fr 1fr; } }
   .sec-title h2 { font: 400 clamp(44px, 7vw, 80px)/.95 var(--display); text-transform: uppercase; margin: 10px 0 0; }
   .sec-title p { color: var(--muted); margin: 16px 0 0; max-width: 40em; }
-  .sub { margin: 72px 0 20px; }
+  .sub { margin: 56px 0 16px; }
 
   /* projects */
   .projects { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
   .proj { border-bottom: 1px solid var(--line); }
-  .proj > a, .proj > div { display: grid; grid-template-columns: 96px 1fr auto; gap: 8px 24px; align-items: baseline; padding: 28px 0; transition: padding .2s, background .2s; }
+  .proj > a, .proj > div { display: grid; grid-template-columns: 96px 1fr 120px 92px; gap: 8px 24px; align-items: baseline; padding: 28px 0; transition: padding .2s, background .2s; }
   .proj > a:hover { background: var(--panel); padding-left: 16px; padding-right: 16px; }
   .tk { font: 700 13px var(--mono); color: var(--amber); }
   .proj h3 { font-size: 22px; font-weight: 600; margin: 0; letter-spacing: -.01em; }
@@ -92,7 +105,10 @@
   @media (max-width: 640px) {
     .proj > a, .proj > div { grid-template-columns: 1fr auto; }
     .proj .body { grid-column: 1 / -1; grid-row: 2; }
+    .proj .spark { display: none; }
   }
+  .spark { width: 120px; height: 36px; align-self: center; }
+  .proj .st { justify-self: end; }
   .disclosure { font-size: 14px; color: var(--dim); margin: 20px 0 0; max-width: 46em; }
   .disclosure b { color: var(--muted); font-weight: 500; }
 
@@ -116,6 +132,9 @@
   .ask { color: var(--red); } .ask::before { left: 0; background: var(--red); }
   .lvl span { position: relative; }
   .also { margin: 20px 0 0; color: var(--dim); font-size: 14px; }
+  .now { margin-top: 32px; border: 1px solid var(--line); padding: 20px; }
+  .now ul { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 10px; }
+  .now li { display: grid; grid-template-columns: 56px 1fr; gap: 12px; color: var(--muted); font-size: 15px; }
 
   /* timeline */
   .timeline { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--line-2); }
@@ -127,11 +146,18 @@
   .timeline p b { color: var(--text); font-weight: 600; }
 
   /* contact */
-  .contact { padding: 140px 0 120px; text-align: center; }
+  .contact { padding: 112px 0 96px; }
+  .contact .wrap { display: grid; gap: 40px; }
+  @media (min-width: 900px) { .contact .wrap { grid-template-columns: 1.3fr 1fr; align-items: center; } }
+  .slip { border: 1px solid var(--line-2); background: var(--panel); font: 13px var(--mono); }
+  .slip-row { display: flex; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  .slip-row span:first-child { color: var(--dim); }
+  .slip .btn { display: block; text-align: center; border: 0; border-bottom: 1px solid var(--line); }
+  .slip .btn:last-child { border-bottom: 0; }
+  .slip .btn:not(.buy):hover { background: var(--bg); color: var(--amber); }
   .contact h2 { font: 400 clamp(52px, 10vw, 128px)/.9 var(--display); text-transform: uppercase; margin: 16px 0 0; }
   .contact h2 span { color: var(--green); }
-  .contact p { color: var(--muted); max-width: 32em; margin: 28px auto 0; font-size: 18px; }
-  .contact .btns { justify-content: center; }
+  .contact p { color: var(--muted); max-width: 32em; margin: 24px 0 0; font-size: 18px; }
   .contact .fine { font: 11px var(--mono); color: var(--dim); margin-top: 28px; letter-spacing: .04em; }
 
   footer { border-top: 1px solid var(--line); padding: 28px 0 40px; }
@@ -173,6 +199,7 @@
   <div class="wrap">
     <!-- hero -->
     <div class="hero">
+      <div>
       <p class="label">LKSY · Full-stack developer · Rajasthan, India</p>
       <h1>Lakshya<br><span>Gupta</span></h1>
       <p class="lead">I build web products <b>end-to-end and ship them</b> — TypeScript, React, Next.js, Node and Django — and quant tools for Indian markets in Python.</p>
@@ -185,6 +212,22 @@
         <a class="btn buy" href="#contact">Buy $LKSY</a>
         <a class="btn" href="#work">See the work ↓</a>
       </div>
+      </div>
+      <dl class="profile">
+        <dt>NAME</dt><dd>Lakshya Gupta</dd>
+        <dt>ROLE</dt><dd>Full-Stack Developer</dd>
+        <dt>DESKS</dt><dd>Web · Quant finance</dd>
+        <dt>EDU</dt><dd>B.Tech CSE · LPU · 2026</dd>
+        <dt>LISTED</dt><dd>Jul 2022 (GitHub)</dd>
+        <dt>RATING</dt><dd><span class="rating">STRONG BUY</span></dd>
+      </dl>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><b>100+</b><span>lessons in Load-Bearing</span></div>
+      <div class="kpi"><b>2</b><span>products live in production</span></div>
+      <div class="kpi"><b>53</b><span>public repositories</span></div>
+      <div class="kpi"><b>5</b><span>projects shipped in 2026</span></div>
     </div>
 
     <div class="chart-box">
@@ -206,26 +249,31 @@
         <li class="proj"><a href="https://easy-system-design.vercel.app/">
           <span class="tk">LDBR</span>
           <div class="body"><h3>Load-Bearing <span class="arrow">↗</span></h3><p>A free system design course — 100+ lessons and a canvas that grades your architecture.</p><div class="stack">JavaScript · SSG · Vercel</div></div>
+          <svg class="spark" data-seed="7" viewBox="0 0 120 36" aria-hidden="true"></svg>
           <span class="st live">LIVE</span>
         </a></li>
         <li class="proj"><a href="https://learnfinance-tau.vercel.app">
           <span class="tk">LFIN</span>
           <div class="body"><h3>LearnFinance <span class="arrow">↗</span></h3><p>Gamified, India-first finance, from zero to advanced.</p><div class="stack">Astro · Tailwind · MDX</div></div>
+          <svg class="spark" data-seed="21" viewBox="0 0 120 36" aria-hidden="true"></svg>
           <span class="st live">LIVE</span>
         </a></li>
         <li class="proj"><a href="https://github.com/Lakshya5025/ai-component-playground">
           <span class="tk">AICP</span>
           <div class="body"><h3>AI Component Playground <span class="arrow">↗</span></h3><p>Describe a React component, get a live preview and a zip.</p><div class="stack">React · Express · Gemini · Prisma</div></div>
+          <svg class="spark" data-seed="11" viewBox="0 0 120 36" aria-hidden="true"></svg>
           <span class="st live">SHIPPED</span>
         </a></li>
         <li class="proj"><div>
           <span class="tk">SYSD</span>
           <div class="body"><h3>sysdesign-academy</h3><p>The system design course, rebuilt production-grade with tests.</p><div class="stack">Next.js · TypeScript · Supabase · Vitest</div></div>
+          <svg class="spark" data-seed="3" viewBox="0 0 120 36" aria-hidden="true"></svg>
           <span class="st pre">PRE-IPO</span>
         </div></li>
         <li class="proj"><div>
           <span class="tk">QNT</span>
           <div class="body"><h3>NSE Quant Screeners</h3><p>Fundamental screens and backtests over the NSE F&amp;O universe.</p><div class="stack">Python · pandas · Kite Connect</div></div>
+          <svg class="spark" data-seed="42" viewBox="0 0 120 36" aria-hidden="true"></svg>
           <span class="st dark">PRIVATE</span>
         </div></li>
       </ul>
@@ -243,6 +291,7 @@
       </ul>
     </section>
 
+    <div class="split">
     <!-- skills -->
     <section id="skills" aria-labelledby="skills-h">
       <div class="sec-title">
@@ -254,6 +303,14 @@
         <div id="bookRows"></div>
       </div>
       <p class="also">Also: Java · C++ · PHP · Laravel · WebSockets · Prisma · Supabase · Vitest · Git · Linux</p>
+      <div class="now">
+        <p class="label">Now · open orders</p>
+        <ul>
+          <li><span class="tk">SYSD</span>Rebuilding the system design course on Next.js + Supabase</li>
+          <li><span class="tk">QNT</span>Screening the NSE F&amp;O universe on fundamentals</li>
+          <li><span class="tk">LKSY</span>Open to full-stack and product engineering roles</li>
+        </ul>
+      </div>
     </section>
 
     <!-- timeline -->
@@ -271,19 +328,25 @@
         <li><time>2022</time><p><b>IPO.</b> Joins GitHub and starts a B.Tech in CSE.</p></li>
       </ol>
     </section>
+    </div>
   </div>
 
   <!-- contact -->
   <section class="contact" id="contact" aria-labelledby="ct-h">
     <div class="wrap">
+      <div>
       <p class="label">04 · Order entry</p>
       <h2 id="ct-h">Buy <span>$LKSY</span></h2>
       <p>Open to full-stack and product engineering roles, freelance builds and collaborations — especially where web meets finance.</p>
-      <div class="btns">
-        <a class="btn buy" href="https://www.linkedin.com/in/lakshya123">Message on LinkedIn ↗</a>
-        <a class="btn" href="https://github.com/Lakshya5025">GitHub ↗</a>
-      </div>
       <p class="fine">Past performance is a strong indicator of future shipping.</p>
+      </div>
+      <div class="slip">
+        <div class="slip-row"><span>SIDE</span><span class="up">BUY</span></div>
+        <div class="slip-row"><span>SYMBOL</span><span>LKSY</span></div>
+        <div class="slip-row"><span>TYPE</span><span>Full-time · Freelance · Collab</span></div>
+        <a class="btn buy" href="https://www.linkedin.com/in/lakshya123">Execute on LinkedIn ↗</a>
+        <a class="btn" href="https://github.com/Lakshya5025">Inspect on GitHub ↗</a>
+      </div>
     </div>
   </section>
 </main>
@@ -335,14 +398,14 @@
   const k = Math.log(20.26) / lp;
   const candles = logs.map((l, i) => {
     const c = 100 * Math.exp(l * k), o = i ? 100 * Math.exp(logs[i - 1] * k) : 92;
-    return { o, c, h: Math.max(o, c) * (1 + r() * 0.05), l: Math.min(o, c) * (1 - r() * 0.05) };
+    return { o, c, h: Math.max(o, c) * (1 + r() * 0.05), l: Math.min(o, c) * (1 - r() * 0.05), v: 0.25 + r() * 0.6 + (isMs.has(i) ? 0.8 : 0) };
   });
   const last = candles[candles.length - 1];
   $('#price').textContent = '₹' + last.c.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   const cv = $('#chart'), ctx = cv.getContext('2d'), wrap = $('#chartWrap'), tip = $('#tip');
   const C = { up: css('--green'), down: css('--red'), amber: css('--amber'), line: css('--line'), dim: css('--dim'), text: css('--text'), bg: css('--bg') };
-  const pad = { l: 18, r: 18, t: 40, b: 28 };
+  const pad = { l: 18, r: 64, t: 40, b: 28 };
   let W, H, hover = -1;
   const hi = Math.max(...candles.map(c => c.h)), lo = Math.min(...candles.map(c => c.l));
   const cw = () => (W - pad.l - pad.r) / n;
@@ -352,6 +415,11 @@
   function draw() {
     ctx.clearRect(0, 0, W, H);
     ctx.font = '11px JetBrains Mono, monospace'; ctx.lineWidth = 1;
+    for (let g = 0; g <= 3; g++) {
+      const p = Math.exp(Math.log(lo) + (Math.log(hi) - Math.log(lo)) * g / 3), gy = y(p);
+      ctx.strokeStyle = C.line; ctx.beginPath(); ctx.moveTo(pad.l, gy); ctx.lineTo(W - pad.r, gy); ctx.stroke();
+      ctx.fillStyle = C.dim; ctx.fillText(p.toFixed(0), W - pad.r + 10, gy + 4);
+    }
     ctx.fillStyle = C.dim;
     candles.forEach((_, i) => { if ((6 + i) % 12 === 0) ctx.fillText(2022 + (6 + i) / 12, x(i) - 14, H - 9); });
     milestones.forEach(([i, name]) => {
@@ -367,8 +435,12 @@
       ctx.globalAlpha = hover < 0 || hover === i ? 1 : .55;
       ctx.beginPath(); ctx.moveTo(x(i), y(c.h)); ctx.lineTo(x(i), y(c.l)); ctx.stroke();
       const top = y(Math.max(c.o, c.c)); ctx.fillRect(x(i) - bw / 2, top, bw, Math.max(1, y(Math.min(c.o, c.c)) - top));
+      ctx.globalAlpha *= .22; const vh = 40 * c.v / 1.7; ctx.fillRect(x(i) - bw / 2, H - pad.b - vh, bw, vh);
     });
     ctx.globalAlpha = 1;
+    const ly = y(last.c);
+    ctx.fillStyle = C.up; ctx.fillRect(W - pad.r + 4, ly - 9, pad.r - 6, 18);
+    ctx.fillStyle = C.bg; ctx.font = 'bold 11px JetBrains Mono, monospace'; ctx.fillText(last.c.toFixed(0), W - pad.r + 9, ly + 4);
   }
   wrap.addEventListener('mousemove', e => {
     const rect = wrap.getBoundingClientRect(), mx = e.clientX - rect.left, my = e.clientY - rect.top;
@@ -380,6 +452,13 @@
   });
   wrap.addEventListener('mouseleave', () => { hover = -1; tip.style.opacity = 0; draw(); });
   new ResizeObserver(size).observe(wrap);
+
+  /* ---------- sparklines ---------- */
+  document.querySelectorAll('.spark').forEach(svg => {
+    const rr = rng(+svg.dataset.seed); let v = 26; const pts = [];
+    for (let i = 0; i < 24; i++) { v = Math.max(4, Math.min(32, v - (rr() - 0.35) * 5)); pts.push(`${(i * 120 / 23).toFixed(1)},${v.toFixed(1)}`); }
+    svg.innerHTML = `<polyline fill="none" stroke="${v < 26 ? C.up : C.down}" stroke-width="1.5" points="${pts.join(' ')}"/>`;
+  });
 
   /* ---------- skills order book ---------- */
   const bids = ['TypeScript', 'React', 'Next.js', 'Node / Express', 'Django', 'Angular', 'Tailwind'];
